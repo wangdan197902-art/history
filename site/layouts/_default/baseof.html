@@ -6,6 +6,7 @@
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <title>{{ block "title" . }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
   {{ partial "head.html" . }}
+  {{ partial "jsonld.html" . }}
   {{ block "head_extra" . }}{{ end }}
 </head>
 <body>
