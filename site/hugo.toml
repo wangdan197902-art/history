@@ -138,6 +138,10 @@ buildFuture = false
   languages = "zh,en,ja,ko,es,fr,de,pt,ru,ar,it,nl,pl,tr,vi,th,id,sv,cs,da"
   # SEO
   googleAnalytics = ""
+  # Google Search Console 验证（主入口 history.ai-term-hub.com）
+  # 参数名与 hugo-{lang}.toml 中的 [params] 段落保持一致（snake_case）
+  google_site_verification = "Po21SS8ccODMgK6x0_LBsBX0t5qz7bdqRzASwE-ngyo"
+  # 兼容旧命名（保留空值，避免 config 读取异常）
   googleSiteVerification = ""
 
 # 分页
