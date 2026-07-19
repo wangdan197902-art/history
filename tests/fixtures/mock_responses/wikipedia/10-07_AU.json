@@ -1,0 +1,56 @@
+{
+  "date": "2024-10-07",
+  "country_code": "AU",
+  "events": [
+    {
+      "id": "evt_1007_AU_000",
+      "date": "2024-10-07",
+      "year": 1950,
+      "title": "[AU] 重要历史事件二",
+      "description": "该地区20世纪中叶的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/AU_10-07",
+      "categories": [
+        "mock",
+        "au",
+        "historical"
+      ],
+      "location": "AU",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1007_AU_001",
+      "date": "2024-10-07",
+      "year": 2000,
+      "title": "[AU] 重要历史事件三",
+      "description": "该地区21世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/AU_10-07",
+      "categories": [
+        "mock",
+        "au",
+        "historical"
+      ],
+      "location": "AU",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1007_AU_002",
+      "date": "2024-10-07",
+      "year": 1800,
+      "title": "[AU] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/AU_10-07",
+      "categories": [
+        "mock",
+        "au",
+        "historical"
+      ],
+      "location": "AU",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

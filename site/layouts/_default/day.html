@@ -1,0 +1,17 @@
+{{ define "main" }}
+<article class="day-page">
+  <header class="day-header">
+    <h1>{{ .Title }}</h1>
+    <p class="day-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006年01月02日" }}</time>
+      {{ with .Params.country_name }} · <span class="country">{{ . }}</span>{{ end }}
+      {{ with .Params.country_code }} · <span class="badge">{{ . }}</span>{{ end }}
+    </p>
+  </header>
+  <div class="day-content">
+    {{ .Content }}
+  </div>
+  {{ partial "day-events.html" . }}
+  {{ partial "day-nav.html" . }}
+</article>
+{{ end }}

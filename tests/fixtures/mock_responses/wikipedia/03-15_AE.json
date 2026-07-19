@@ -1,0 +1,56 @@
+{
+  "date": "2024-03-15",
+  "country_code": "AE",
+  "events": [
+    {
+      "id": "evt_0315_AE_000",
+      "date": "2024-03-15",
+      "year": 2000,
+      "title": "[AE] 重要历史事件三",
+      "description": "该地区21世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/AE_03-15",
+      "categories": [
+        "mock",
+        "ae",
+        "historical"
+      ],
+      "location": "AE",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0315_AE_001",
+      "date": "2024-03-15",
+      "year": 1800,
+      "title": "[AE] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/AE_03-15",
+      "categories": [
+        "mock",
+        "ae",
+        "historical"
+      ],
+      "location": "AE",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0315_AE_002",
+      "date": "2024-03-15",
+      "year": 2020,
+      "title": "[AE] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/AE_03-15",
+      "categories": [
+        "mock",
+        "ae",
+        "historical"
+      ],
+      "location": "AE",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

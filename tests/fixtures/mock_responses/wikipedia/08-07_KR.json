@@ -1,0 +1,56 @@
+{
+  "date": "2024-08-07",
+  "country_code": "KR",
+  "events": [
+    {
+      "id": "evt_0807_KR_000",
+      "date": "2024-08-07",
+      "year": 2022,
+      "title": "[KR] 梨泰院踩踏事故",
+      "description": "首尔梨泰院发生严重踩踏事故,造成159人死亡。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/KR_08-07",
+      "categories": [
+        "mock",
+        "kr",
+        "historical"
+      ],
+      "location": "KR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0807_KR_001",
+      "date": "2024-08-07",
+      "year": 1945,
+      "title": "[KR] 光复节",
+      "description": "朝鲜半岛脱离日本殖民统治获得独立。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/KR_08-07",
+      "categories": [
+        "mock",
+        "kr",
+        "historical"
+      ],
+      "location": "KR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0807_KR_002",
+      "date": "2024-08-07",
+      "year": 1950,
+      "title": "[KR] 朝鲜战争爆发",
+      "description": "朝鲜人民军越过三八线南下,朝鲜战争爆发。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/KR_08-07",
+      "categories": [
+        "mock",
+        "kr",
+        "historical"
+      ],
+      "location": "KR",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

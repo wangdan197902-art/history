@@ -1,0 +1,116 @@
+{{/* Pagefind 搜索框 */}}
+<div id="search-container" class="search-container">
+  <div class="search-box">
+    <input
+      type="search"
+      id="pagefind-search"
+      placeholder="{{ i18n "search_placeholder" | default "搜索历史事件..." }}"
+      class="search-input"
+      autocomplete="off"
+    />
+    <div id="pagefind-results" class="search-results"></div>
+  </div>
+</div>
+
+<style>
+.search-container {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--bg-secondary, #f5f5f5);
+  border-radius: 8px;
+}
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.search-input:focus {
+  outline: 2px solid #0066cc;
+  border-color: #0066cc;
+}
+.search-results {
+  margin-top: 1rem;
+}
+.search-results:empty {
+  display: none;
+}
+.search-result {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: 4px;
+  border-left: 3px solid #0066cc;
+}
+.search-result-title {
+  font-weight: 600;
+  color: #0066cc;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.search-result-title:hover {
+  text-decoration: underline;
+}
+.search-result-excerpt {
+  color: #555;
+  font-size: 0.875rem;
+}
+</style>
+
+{{/* 只在 Pagefind 索引存在时加载 JS */}}
+<script>
+(function() {
+  const input = document.getElementById('pagefind-search');
+  const results = document.getElementById('pagefind-results');
+  if (!input || !results) return;
+
+  let pagefind = null;
+  let debounceTimer = null;
+
+  async function loadPagefind() {
+    if (pagefind) return pagefind;
+    try {
+      pagefind = await import('/pagefind/pagefind-entry.js');
+      await pagefind.options({});
+      await pagefind.init();
+    } catch (e) {
+      console.warn('Pagefind 未初始化,搜索功能不可用');
+      pagefind = null;
+    }
+    return pagefind;
+  }
+
+  async function performSearch(query) {
+    if (!query || query.length < 2) {
+      results.innerHTML = '';
+      return;
+    }
+    const pf = await loadPagefind();
+    if (!pf) {
+      results.innerHTML = '<div class="search-result">搜索索引加载失败</div>';
+      return;
+    }
+    const search = await pf.search(query);
+    if (search.results.length === 0) {
+      results.innerHTML = '<div class="search-result">未找到结果</div>';
+      return;
+    }
+    const topResults = search.results.slice(0, 10);
+    const rendered = await Promise.all(topResults.map(r => r.data()));
+    results.innerHTML = rendered.map(r => `
+      <div class="search-result">
+        <a href="${r.url}" class="search-result-title">${r.meta?.title || r.url}</a>
+        <div class="search-result-excerpt">${r.excerpt || ''}</div>
+      </div>
+    `).join('');
+  }
+
+  input.addEventListener('input', (e) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => performSearch(e.target.value), 200);
+  });
+})();
+</script>

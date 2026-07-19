@@ -1,0 +1,56 @@
+{
+  "date": "2024-07-03",
+  "country_code": "CN",
+  "events": [
+    {
+      "id": "evt_0703_CN_000",
+      "date": "2024-07-03",
+      "year": 2008,
+      "title": "[CN] 北京奥运会",
+      "description": "第29届夏季奥林匹克运动会在北京国家体育场(鸟巢)开幕。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_07-03",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0703_CN_001",
+      "date": "2024-07-03",
+      "year": 1921,
+      "title": "[CN] 中国共产党成立",
+      "description": "中国共产党第一次全国代表大会在上海召开,标志着中国共产党成立。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_07-03",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0703_CN_002",
+      "date": "2024-07-03",
+      "year": 1949,
+      "title": "[CN] 中华人民共和国成立",
+      "description": "毛泽东在北京天安门城楼宣告中华人民共和国中央人民政府成立。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_07-03",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "chatcmpl-mock_SE_07-04_en",
+  "object": "chat.completion",
+  "created": 0,
+  "model": "gpt-4o",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "[Mock English] SE 07-04 历史事件翻译(English)。"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 80,
+    "completion_tokens": 50,
+    "total_tokens": 130
+  }
+}

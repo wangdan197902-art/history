@@ -1,0 +1,56 @@
+{
+  "date": "2024-05-09",
+  "country_code": "NL",
+  "events": [
+    {
+      "id": "evt_0509_NL_000",
+      "date": "2024-05-09",
+      "year": 1800,
+      "title": "[NL] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/NL_05-09",
+      "categories": [
+        "mock",
+        "nl",
+        "historical"
+      ],
+      "location": "NL",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0509_NL_001",
+      "date": "2024-05-09",
+      "year": 2020,
+      "title": "[NL] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/NL_05-09",
+      "categories": [
+        "mock",
+        "nl",
+        "historical"
+      ],
+      "location": "NL",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0509_NL_002",
+      "date": "2024-05-09",
+      "year": 1900,
+      "title": "[NL] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/NL_05-09",
+      "categories": [
+        "mock",
+        "nl",
+        "historical"
+      ],
+      "location": "NL",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

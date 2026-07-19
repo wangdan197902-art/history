@@ -1,0 +1,216 @@
+openapi: 3.0.3
+info:
+  title: Wikipedia OnThisDay API
+  version: 1.0.0
+  description: |
+    Wikipedia "On This Day" 事件 API 契约
+    用于获取某月某日的历史事件、出生、逝世、节假日信息
+    Mock 端点: http://127.0.0.1:8765/wikipedia
+    生产端点: https://api.wikimedia.org/feed/v1/wikipedia
+servers:
+  - url: https://api.wikimedia.org/feed/v1/wikipedia
+    description: 生产环境
+  - url: http://127.0.0.1:8765/wikipedia
+    description: Mock 环境(本地开发)
+paths:
+  /onthisday/{type}/{month}/{day}:
+    get:
+      summary: 获取某月某日的历史事件
+      description: 按 type 返回指定日期的事件列表
+      operationId: getOnThisDayEvents
+      tags: [wikipedia]
+      parameters:
+        - name: type
+          in: path
+          required: true
+          description: 事件类型
+          schema:
+            type: string
+            enum: [all, selected, births, deaths, holidays, events]
+            default: all
+        - name: month
+          in: path
+          required: true
+          description: 月份(01-12)
+          schema:
+            type: string
+            pattern: '^(0[1-9]|1[0-2])$'
+            example: "07"
+        - name: day
+          in: path
+          required: true
+          description: 日期(01-31)
+          schema:
+            type: string
+            pattern: '^(0[1-9]|[12][0-9]|3[01])$'
+            example: "04"
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+            default: application/json
+      responses:
+        '200':
+          description: 成功返回事件列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnThisDayResponse'
+              example:
+                events:
+                  - text: "中国共产党第一次全国代表大会在上海召开"
+                    year: 1921
+                    pages:
+                      - title: "Chinese Communist Party"
+                        content_urls:
+                          page: "https://en.wikipedia.org/wiki/Chinese_Communist_Party"
+                    categories:
+                      - "politics"
+                      - "china"
+        '400':
+          description: 日期格式错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: 无数据
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: 限流
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 服务器错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    OnThisDayResponse:
+      type: object
+      required: [events]
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/WikipediaEvent'
+          description: 历史事件列表
+        births:
+          type: array
+          items:
+            $ref: '#/components/schemas/WikipediaPerson'
+          description: 出生人物列表
+        deaths:
+          type: array
+          items:
+            $ref: '#/components/schemas/WikipediaPerson'
+          description: 逝世人物列表
+        holidays:
+          type: array
+          items:
+            type: object
+            properties:
+              text: { type: string }
+              pages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title: { type: string }
+                    content_urls:
+                      type: object
+                      properties:
+                        page: { type: string }
+          description: 节假日列表
+        selected:
+          type: array
+          items:
+            $ref: '#/components/schemas/WikipediaEvent'
+          description: 精选事件列表
+    WikipediaEvent:
+      type: object
+      required: [text, year, pages]
+      properties:
+        text:
+          type: string
+          description: 事件描述文本
+          example: "中国共产党第一次全国代表大会在上海召开"
+        year:
+          type: integer
+          description: 事件发生的年份
+          example: 1921
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/WikipediaPage'
+          description: 相关页面列表
+        categories:
+          type: array
+          items: { type: string }
+          description: 分类标签
+    WikipediaPage:
+      type: object
+      required: [title]
+      properties:
+        title:
+          type: string
+          description: 页面标题
+          example: "Chinese Communist Party"
+        normalizedtitle:
+          type: string
+          description: 规范化标题
+        content_urls:
+          type: object
+          properties:
+            page:
+              type: string
+              description: 页面完整 URL
+            revision:
+              type: string
+              description: 修订版本 ID
+        thumbnail:
+          type: object
+          properties:
+            source: { type: string }
+            width: { type: integer }
+            height: { type: integer }
+        description:
+          type: string
+          description: 页面摘要
+        extract:
+          type: string
+          description: 页面正文摘要
+    WikipediaPerson:
+      type: object
+      required: [text, year, pages]
+      properties:
+        text:
+          type: string
+          description: 人物描述
+        year:
+          type: integer
+          description: 出生/逝世年份
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/WikipediaPage'
+    ErrorResponse:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          description: 错误代码
+          example: "INVALID_DATE"
+        message:
+          type: string
+          description: 错误消息
+          example: "Invalid date format"

@@ -1,0 +1,29 @@
+{{ define "main" }}
+<section class="list-page">
+  <header class="list-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="list-description">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  {{ partial "search.html" . }}
+
+  {{ if .Pages }}
+  <ul class="page-list">
+    {{ range first 50 .Pages }}
+    <li class="page-item">
+      <a href="{{ .Permalink }}" class="page-link">{{ .Title }}</a>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+
+  {{ if .Content }}
+  <div class="list-content">
+    {{ .Content }}
+  </div>
+  {{ end }}
+</section>
+{{ end }}

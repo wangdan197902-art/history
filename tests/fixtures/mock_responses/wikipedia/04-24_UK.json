@@ -1,0 +1,56 @@
+{
+  "date": "2024-04-24",
+  "country_code": "UK",
+  "events": [
+    {
+      "id": "evt_0424_UK_000",
+      "date": "2024-04-24",
+      "year": 1707,
+      "title": "[UK] 联合法案",
+      "description": "英格兰与苏格兰合并,形成大不列颠王国。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_04-24",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0424_UK_001",
+      "date": "2024-04-24",
+      "year": 1940,
+      "title": "[UK] 不列颠空战",
+      "description": "英国皇家空军击败德国空军,保卫了英国本土。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_04-24",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0424_UK_002",
+      "date": "2024-04-24",
+      "year": 1952,
+      "title": "[UK] 伊丽莎白二世即位",
+      "description": "伊丽莎白二世继位,成为英国女王。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_04-24",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

@@ -1,0 +1,105 @@
+name: Translate Content Daily
+
+on:
+  schedule:
+    # 每日北京时间 9:00 (UTC 1:00)自动翻译
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      langs:
+        description: '目标语种,逗号分隔(如 it,nl,pl,tr)。留空则全部 20 种'
+        required: false
+        default: ''
+      countries:
+        description: '目标地区,逗号分隔(如 CN,US,JP)。留空则全部 30 地区'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: translate-content
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      ENV_MODE: cloud
+      AGNES_LLM_API_KEY: ${{ secrets.AGNES_LLM_API_KEY }}
+      AGNES_LLM_BASE_URL: ${{ secrets.AGNES_LLM_BASE_URL }}
+      AGNES_LLM_MODEL: ${{ secrets.AGNES_LLM_MODEL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --quiet pydantic pydantic-settings diskcache httpx tenacity python-dotenv
+
+      - name: Prepare translate parameters
+        id: prep
+        run: |
+          LANGS="${{ github.event.inputs.langs }}"
+          COUNTRIES="${{ github.event.inputs.countries }}"
+          echo "langs=$LANGS" >> $GITHUB_OUTPUT
+          echo "countries=$COUNTRIES" >> $GITHUB_OUTPUT
+          echo "目标语种: '$LANGS'"
+          echo "目标地区: '$COUNTRIES'"
+
+      - name: Generate translated content
+        run: |
+          LANGS="${{ steps.prep.outputs.langs }}"
+          COUNTRIES="${{ steps.prep.outputs.countries }}"
+
+          CMD="python3 scripts/generate_full_site.py --output-dir=site/content"
+          if [ -n "$LANGS" ]; then
+            CMD="$CMD --languages=$LANGS"
+          fi
+          if [ -n "$COUNTRIES" ]; then
+            CMD="$CMD --countries=$COUNTRIES"
+          fi
+
+          echo "🚀 执行: $CMD"
+          $CMD 2>&1 | tee translate.log
+          echo "=== 翻译日志(最后 20 行) ==="
+          tail -20 translate.log
+
+      - name: Commit translations
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site/content/ tests/fixtures/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "无新内容需要提交"
+            echo "committed=false" >> $GITHUB_ENV
+          else
+            git commit -m "chore: auto-translate update $(date -u +'%Y-%m-%d %H:%M')"
+            echo "committed=true" >> $GITHUB_ENV
+          fi
+
+      - name: Push changes
+        if: env.committed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+        run: |
+          git push
+          echo "✓ 已推送翻译内容,将触发 deploy.yml 重新部署"
+
+      - name: Workflow summary
+        if: always()
+        run: |
+          echo "=== Translate Workflow 总结 ==="
+          echo "语种: ${{ steps.prep.outputs.langs || '全部 20 种' }}"
+          echo "地区: ${{ steps.prep.outputs.countries || '全部 30 地区' }}"
+          echo "提交状态: ${{ env.committed }}"

@@ -1,0 +1,56 @@
+{
+  "date": "2024-10-08",
+  "country_code": "FR",
+  "events": [
+    {
+      "id": "evt_1008_FR_000",
+      "date": "2024-10-08",
+      "year": 1871,
+      "title": "[FR] 巴黎公社",
+      "description": "巴黎工人起义,建立巴黎公社政权。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_10-08",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1008_FR_001",
+      "date": "2024-10-08",
+      "year": 1944,
+      "title": "[FR] 巴黎解放",
+      "description": "盟军解放巴黎,结束纳粹德国占领。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_10-08",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1008_FR_002",
+      "date": "2024-10-08",
+      "year": 2015,
+      "title": "[FR] 巴黎气候协定",
+      "description": "《巴黎协定》在联合国气候变化大会上通过。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_10-08",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

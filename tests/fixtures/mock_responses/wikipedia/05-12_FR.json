@@ -1,0 +1,56 @@
+{
+  "date": "2024-05-12",
+  "country_code": "FR",
+  "events": [
+    {
+      "id": "evt_0512_FR_000",
+      "date": "2024-05-12",
+      "year": 1804,
+      "title": "[FR] 拿破仑称帝",
+      "description": "拿破仑·波拿巴在巴黎圣母院加冕为法国皇帝。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_05-12",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0512_FR_001",
+      "date": "2024-05-12",
+      "year": 1871,
+      "title": "[FR] 巴黎公社",
+      "description": "巴黎工人起义,建立巴黎公社政权。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_05-12",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0512_FR_002",
+      "date": "2024-05-12",
+      "year": 1944,
+      "title": "[FR] 巴黎解放",
+      "description": "盟军解放巴黎,结束纳粹德国占领。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_05-12",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

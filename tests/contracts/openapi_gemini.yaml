@@ -1,0 +1,185 @@
+openapi: 3.0.3
+info:
+  title: Google Gemini API
+  version: 1.0.0
+  description: |
+    Google Gemini API 契约
+    用于为历史事件生成配图描述和图片审核
+    Mock 端点: http://127.0.0.1:8765/gemini
+    生产端点: https://generativelanguage.googleapis.com/v1beta
+servers:
+  - url: https://generativelanguage.googleapis.com/v1beta
+    description: 生产环境
+  - url: http://127.0.0.1:8765/gemini
+    description: Mock 环境(本地开发)
+security:
+  - ApiKeyAuth: []
+paths:
+  /models/{model}:generateContent:
+    post:
+      summary: 生成内容
+      description: 用于生成配图描述
+      operationId: generateContent
+      tags: [gemini]
+      parameters:
+        - name: model
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [gemini-1.5-flash, gemini-1.5-pro, gemini-2.0-flash]
+          example: "gemini-1.5-flash"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateContentRequest'
+            example:
+              contents:
+                - parts:
+                    - text: "为以下历史事件生成图片描述和搜索关键词:1921年中国共产党成立"
+              generationConfig:
+                temperature: 0.7
+                maxOutputTokens: 1024
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateContentResponse'
+              example:
+                candidates:
+                  - content:
+                      parts:
+                        - text: '{"image_description":"1921年上海中共一大会址,代表们围坐在长桌旁召开会议","search_keywords":["中共一大会址","1921 Shanghai","CCP First Congress"]}'
+                    finishReason: "STOP"
+                usageMetadata:
+                  promptTokenCount: 30
+                  candidatesTokenCount: 80
+                  totalTokenCount: 110
+        '401':
+          description: 未授权
+        '429':
+          description: 限流
+        '500':
+          description: 服务器错误
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key
+  schemas:
+    GenerateContentRequest:
+      type: object
+      required: [contents]
+      properties:
+        contents:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Content'
+          description: 对话内容列表
+        generationConfig:
+          $ref: '#/components/schemas/GenerationConfig'
+        safetySettings:
+          type: array
+          items:
+            type: object
+            properties:
+              category:
+                type: string
+                enum:
+                  - HARM_CATEGORY_HARASSMENT
+                  - HARM_CATEGORY_HATE_SPEECH
+                  - HARM_CATEGORY_SEXUALLY_EXPLICIT
+                  - HARM_CATEGORY_DANGEROUS_CONTENT
+              threshold:
+                type: string
+                enum: [BLOCK_NONE, BLOCK_LOW_AND_ABOVE, BLOCK_MEDIUM_AND_ABOVE, BLOCK_HIGH_ONLY]
+    Content:
+      type: object
+      required: [parts]
+      properties:
+        parts:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+                description: 文本内容
+              inline_data:
+                type: object
+                properties:
+                  mime_type:
+                    type: string
+                    example: "image/jpeg"
+                  data:
+                    type: string
+                    description: Base64 编码的图片数据
+        role:
+          type: string
+          enum: [user, model]
+          description: 角色
+    GenerationConfig:
+      type: object
+      properties:
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 0.7
+        topP:
+          type: number
+          minimum: 0
+          maximum: 1
+        topK:
+          type: integer
+          minimum: 1
+        maxOutputTokens:
+          type: integer
+          minimum: 1
+          description: 最大输出 token 数
+        stopSequences:
+          type: array
+          items: { type: string }
+        responseMimeType:
+          type: string
+          enum: [text/plain, application/json]
+          default: text/plain
+    GenerateContentResponse:
+      type: object
+      required: [candidates]
+      properties:
+        candidates:
+          type: array
+          items:
+            type: object
+            required: [content]
+            properties:
+              content:
+                $ref: '#/components/schemas/Content'
+              finishReason:
+                type: string
+                enum: [STOP, MAX_TOKENS, SAFETY, RECITATION, OTHER]
+              index:
+                type: integer
+              safetyRatings:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    category: { type: string }
+                    probability:
+                      type: string
+                      enum: [NEGLIGIBLE, LOW, MEDIUM, HIGH]
+        usageMetadata:
+          type: object
+          properties:
+            promptTokenCount: { type: integer }
+            candidatesTokenCount: { type: integer }
+            totalTokenCount: { type: integer }

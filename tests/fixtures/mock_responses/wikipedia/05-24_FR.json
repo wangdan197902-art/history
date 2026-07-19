@@ -1,0 +1,56 @@
+{
+  "date": "2024-05-24",
+  "country_code": "FR",
+  "events": [
+    {
+      "id": "evt_0524_FR_000",
+      "date": "2024-05-24",
+      "year": 1944,
+      "title": "[FR] 巴黎解放",
+      "description": "盟军解放巴黎,结束纳粹德国占领。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_05-24",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0524_FR_001",
+      "date": "2024-05-24",
+      "year": 2015,
+      "title": "[FR] 巴黎气候协定",
+      "description": "《巴黎协定》在联合国气候变化大会上通过。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_05-24",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0524_FR_002",
+      "date": "2024-05-24",
+      "year": 1789,
+      "title": "[FR] 法国大革命",
+      "description": "巴黎民众攻占巴士底狱,法国大革命爆发。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/FR_05-24",
+      "categories": [
+        "mock",
+        "fr",
+        "historical"
+      ],
+      "location": "FR",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

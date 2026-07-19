@@ -1,0 +1,56 @@
+{
+  "date": "2024-09-01",
+  "country_code": "UK",
+  "events": [
+    {
+      "id": "evt_0901_UK_000",
+      "date": "2024-09-01",
+      "year": 1952,
+      "title": "[UK] 伊丽莎白二世即位",
+      "description": "伊丽莎白二世继位,成为英国女王。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_09-01",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0901_UK_001",
+      "date": "2024-09-01",
+      "year": 1066,
+      "title": "[UK] 黑斯廷斯战役",
+      "description": "诺曼底公爵威廉征服英格兰,建立诺曼底王朝。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_09-01",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0901_UK_002",
+      "date": "2024-09-01",
+      "year": 1215,
+      "title": "[UK] 大宪章签署",
+      "description": "英王约翰被迫签署《大宪章》,限制王权。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_09-01",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

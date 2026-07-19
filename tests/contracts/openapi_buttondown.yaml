@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  title: Buttondown Newsletter API
+  version: 1.0.0
+  description: |
+    Buttondown Newsletter API 契约
+    用于发布历史事件邮件订阅和推送
+    Mock 端点: http://127.0.0.1:8765/buttondown
+    生产端点: https://api.buttondown.com/api
+servers:
+  - url: https://api.buttondown.com/api
+    description: 生产环境
+  - url: http://127.0.0.1:8765/buttondown
+    description: Mock 环境(本地开发)
+security:
+  - ApiKeyAuth: []
+paths:
+  /emails:
+    get:
+      summary: 获取邮件列表
+      operationId: listEmails
+      tags: [buttondown]
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  next: { type: string, nullable: true }
+                  previous: { type: string, nullable: true }
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Email'
+    post:
+      summary: 创建并发送邮件
+      operationId: createEmail
+      tags: [buttondown]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailCreate'
+            example:
+              subject: "今日历史 · 2026-07-04"
+              body: "1921年中国共产党第一次全国代表大会在上海召开..."
+              publish_date: "2026-07-04T09:00:00Z"
+      responses:
+        '201':
+          description: 创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'
+        '400':
+          description: 请求参数错误
+        '401':
+          description: 未授权
+  /emails/{id}:
+    get:
+      summary: 获取单封邮件
+      operationId: getEmail
+      tags: [buttondown]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'
+        '404':
+          description: 邮件不存在
+  /subscribers:
+    get:
+      summary: 获取订阅者列表
+      operationId: listSubscribers
+      tags: [buttondown]
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: { type: integer }
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Subscriber'
+    post:
+      summary: 添加订阅者
+      operationId: createSubscriber
+      tags: [buttondown]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "user@example.com"
+                ref:
+                  type: string
+                  description: 推荐来源
+      responses:
+        '201':
+          description: 订阅成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscriber'
+        '400':
+          description: 邮箱格式错误或已订阅
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "Token <API_KEY>"
+  schemas:
+    Email:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        subject:
+          type: string
+          description: 邮件主题
+        body:
+          type: string
+          description: 邮件正文(Markdown)
+        publish_date:
+          type: string
+          format: date-time
+          description: 发布时间
+        email_type:
+          type: string
+          enum: [public, private]
+        secondary_subject:
+          type: string
+          nullable: true
+    EmailCreate:
+      type: object
+      required: [subject, body]
+      properties:
+        subject:
+          type: string
+          description: 邮件主题
+        body:
+          type: string
+          description: 邮件正文
+        publish_date:
+          type: string
+          format: date-time
+          description: 发布时间(立即发送则省略)
+        email_type:
+          type: string
+          enum: [public, private]
+          default: public
+    Subscriber:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        creation_date:
+          type: string
+          format: date-time
+        ref:
+          type: string
+          nullable: true
+        tags:
+          type: array
+          items: { type: string }
+        unsubscribed:
+          type: boolean

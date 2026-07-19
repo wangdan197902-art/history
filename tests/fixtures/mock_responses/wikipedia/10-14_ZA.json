@@ -1,0 +1,56 @@
+{
+  "date": "2024-10-14",
+  "country_code": "ZA",
+  "events": [
+    {
+      "id": "evt_1014_ZA_000",
+      "date": "2024-10-14",
+      "year": 1800,
+      "title": "[ZA] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/ZA_10-14",
+      "categories": [
+        "mock",
+        "za",
+        "historical"
+      ],
+      "location": "ZA",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1014_ZA_001",
+      "date": "2024-10-14",
+      "year": 2020,
+      "title": "[ZA] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/ZA_10-14",
+      "categories": [
+        "mock",
+        "za",
+        "historical"
+      ],
+      "location": "ZA",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1014_ZA_002",
+      "date": "2024-10-14",
+      "year": 1900,
+      "title": "[ZA] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/ZA_10-14",
+      "categories": [
+        "mock",
+        "za",
+        "historical"
+      ],
+      "location": "ZA",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

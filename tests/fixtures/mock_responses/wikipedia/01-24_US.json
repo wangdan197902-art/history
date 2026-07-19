@@ -1,0 +1,56 @@
+{
+  "date": "2024-01-24",
+  "country_code": "US",
+  "events": [
+    {
+      "id": "evt_0124_US_000",
+      "date": "2024-01-24",
+      "year": 2001,
+      "title": "[US] 9·11恐怖袭击",
+      "description": "恐怖分子劫持民航客机撞击世界贸易中心和五角大楼。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/US_01-24",
+      "categories": [
+        "mock",
+        "us",
+        "historical"
+      ],
+      "location": "US",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0124_US_001",
+      "date": "2024-01-24",
+      "year": 1776,
+      "title": "[US] 美国独立宣言",
+      "description": "第二届大陆会议通过《独立宣言》,标志着美国建国。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/US_01-24",
+      "categories": [
+        "mock",
+        "us",
+        "historical"
+      ],
+      "location": "US",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0124_US_002",
+      "date": "2024-01-24",
+      "year": 1865,
+      "title": "[US] 林肯遇刺",
+      "description": "美国总统亚伯拉罕·林肯在福特剧院遇刺身亡。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/US_01-24",
+      "categories": [
+        "mock",
+        "us",
+        "historical"
+      ],
+      "location": "US",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

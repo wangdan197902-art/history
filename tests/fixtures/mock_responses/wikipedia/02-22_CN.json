@@ -1,0 +1,56 @@
+{
+  "date": "2024-02-22",
+  "country_code": "CN",
+  "events": [
+    {
+      "id": "evt_0222_CN_000",
+      "date": "2024-02-22",
+      "year": 1976,
+      "title": "[CN] 唐山大地震",
+      "description": "河北省唐山市发生7.8级强烈地震,造成24万余人死亡。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_02-22",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0222_CN_001",
+      "date": "2024-02-22",
+      "year": 2008,
+      "title": "[CN] 北京奥运会",
+      "description": "第29届夏季奥林匹克运动会在北京国家体育场(鸟巢)开幕。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_02-22",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0222_CN_002",
+      "date": "2024-02-22",
+      "year": 1921,
+      "title": "[CN] 中国共产党成立",
+      "description": "中国共产党第一次全国代表大会在上海召开,标志着中国共产党成立。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_02-22",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

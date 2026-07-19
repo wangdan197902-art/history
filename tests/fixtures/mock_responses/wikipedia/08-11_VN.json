@@ -1,0 +1,56 @@
+{
+  "date": "2024-08-11",
+  "country_code": "VN",
+  "events": [
+    {
+      "id": "evt_0811_VN_000",
+      "date": "2024-08-11",
+      "year": 1800,
+      "title": "[VN] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/VN_08-11",
+      "categories": [
+        "mock",
+        "vn",
+        "historical"
+      ],
+      "location": "VN",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0811_VN_001",
+      "date": "2024-08-11",
+      "year": 2020,
+      "title": "[VN] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/VN_08-11",
+      "categories": [
+        "mock",
+        "vn",
+        "historical"
+      ],
+      "location": "VN",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0811_VN_002",
+      "date": "2024-08-11",
+      "year": 1900,
+      "title": "[VN] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/VN_08-11",
+      "categories": [
+        "mock",
+        "vn",
+        "historical"
+      ],
+      "location": "VN",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

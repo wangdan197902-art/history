@@ -1,0 +1,20 @@
+{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "{\"image_url\": \"https://mock.example.com/history_event.jpg\", \"image_alt\": \"历史事件示意图\", \"image_caption\": \"Mock 配图:历史事件场景\", \"search_keywords\": [\"history\", \"event\", \"mock\"]}"
+          }
+        ]
+      },
+      "finishReason": "STOP",
+      "index": 0
+    }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 50,
+    "candidatesTokenCount": 80,
+    "totalTokenCount": 130
+  }
+}

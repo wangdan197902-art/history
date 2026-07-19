@@ -1,0 +1,56 @@
+{
+  "date": "2024-10-27",
+  "country_code": "US",
+  "events": [
+    {
+      "id": "evt_1027_US_000",
+      "date": "2024-10-27",
+      "year": 1865,
+      "title": "[US] 林肯遇刺",
+      "description": "美国总统亚伯拉罕·林肯在福特剧院遇刺身亡。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/US_10-27",
+      "categories": [
+        "mock",
+        "us",
+        "historical"
+      ],
+      "location": "US",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1027_US_001",
+      "date": "2024-10-27",
+      "year": 1945,
+      "title": "[US] 二战结束",
+      "description": "日本投降,第二次世界大战正式结束。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/US_10-27",
+      "categories": [
+        "mock",
+        "us",
+        "historical"
+      ],
+      "location": "US",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1027_US_002",
+      "date": "2024-10-27",
+      "year": 1969,
+      "title": "[US] 阿波罗11号登月",
+      "description": "美国宇航员尼尔·阿姆斯特朗成为第一个登上月球的人。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/US_10-27",
+      "categories": [
+        "mock",
+        "us",
+        "historical"
+      ],
+      "location": "US",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

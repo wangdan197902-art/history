@@ -1,0 +1,259 @@
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --bg: #ffffff;
+  --bg-alt: #f9fafb;
+  --border: #e5e7eb;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --max-width: 800px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 头部 */
+.site-header {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.site-header .logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.main-nav a {
+  margin-left: 1rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.main-nav a:hover {
+  color: var(--primary);
+}
+
+/* 首页 */
+.home-page {
+  padding: 2rem 0;
+}
+
+.home-header h1 {
+  color: var(--primary);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.language-switcher ul,
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.language-switcher a,
+.quick-links a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.language-switcher a:hover,
+.quick-links a:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* 单页 */
+.day-page {
+  padding: 2rem 0;
+}
+
+.day-header h1 {
+  color: var(--primary);
+  font-size: 1.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.day-meta {
+  color: var(--text-light);
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* 事件列表 */
+.day-events {
+  margin-top: 2rem;
+}
+
+.day-events h2 {
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.5rem;
+}
+
+.day-events ol {
+  list-style: none;
+  padding: 0;
+}
+
+.event {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.event-year {
+  flex: 0 0 80px;
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.125rem;
+}
+
+.event-body h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+}
+
+.event-body p {
+  margin: 0;
+  color: var(--text-light);
+}
+
+.event figure {
+  margin: 0.5rem 0 0;
+}
+
+.event img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.event figcaption {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-top: 0.25rem;
+}
+
+/* 导航 */
+.day-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.day-nav a {
+  padding: 0.5rem 1rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.day-nav a:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* 页脚 */
+.site-footer {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
+.footer-langs {
+  margin-top: 0.5rem;
+}
+
+.footer-langs a {
+  margin: 0 0.5rem;
+  color: var(--text-light);
+  text-decoration: none;
+}
+
+.footer-langs a:hover {
+  color: var(--primary);
+}
+
+/* 响应式 */
+@media (max-width: 640px) {
+  .site-header .container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .main-nav a {
+    margin: 0 0.5rem;
+  }
+  .event {
+    flex-direction: column;
+  }
+  .event-year {
+    flex: none;
+  }
+}
+
+/* RTL 支持 */
+[dir="rtl"] .event {
+  flex-direction: row-reverse;
+}

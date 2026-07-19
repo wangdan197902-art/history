@@ -1,0 +1,20 @@
+{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "{\"audit_pass\": true, \"compliance_score\": 0.9, \"issues\": [], \"notes\": \"Mock 审核:内容合规\"}"
+          }
+        ]
+      },
+      "finishReason": "STOP",
+      "index": 0
+    }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 50,
+    "candidatesTokenCount": 80,
+    "totalTokenCount": 130
+  }
+}

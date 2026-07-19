@@ -1,0 +1,56 @@
+{
+  "date": "2024-05-19",
+  "country_code": "PL",
+  "events": [
+    {
+      "id": "evt_0519_PL_000",
+      "date": "2024-05-19",
+      "year": 1800,
+      "title": "[PL] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/PL_05-19",
+      "categories": [
+        "mock",
+        "pl",
+        "historical"
+      ],
+      "location": "PL",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0519_PL_001",
+      "date": "2024-05-19",
+      "year": 2020,
+      "title": "[PL] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/PL_05-19",
+      "categories": [
+        "mock",
+        "pl",
+        "historical"
+      ],
+      "location": "PL",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0519_PL_002",
+      "date": "2024-05-19",
+      "year": 1900,
+      "title": "[PL] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/PL_05-19",
+      "categories": [
+        "mock",
+        "pl",
+        "historical"
+      ],
+      "location": "PL",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

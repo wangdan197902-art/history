@@ -1,0 +1,10 @@
+{{ range $.Site.Languages }}
+  {{ $url := printf "/%s/" .Lang }}
+  {{ if $.IsTranslated }}
+    {{ range $.Translations }}
+      {{ if eq .Lang $.Lang }}{{ $url = .Permalink }}{{ end }}
+    {{ end }}
+  {{ end }}
+  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ $url | absURL }}">
+{{ end }}
+<link rel="alternate" hreflang="x-default" href="{{ "/" | absURL }}">

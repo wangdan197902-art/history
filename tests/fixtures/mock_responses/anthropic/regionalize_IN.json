@@ -1,0 +1,17 @@
+{
+  "id": "msg_mock_IN_12-25",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-3-5-sonnet-20241022",
+  "content": [
+    {
+      "type": "text",
+      "text": "[Mock 地区化] 印度 在 12-25 的历史事件地区化重写版本。保持了中立性,突出了与IN的关联。"
+    }
+  ],
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 80,
+    "output_tokens": 120
+  }
+}

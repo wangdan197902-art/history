@@ -1,0 +1,48 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# 环境
+.env
+.env.local
+.DS_Store
+
+# 缓存
+.cache/
+*.log
+
+# Hugo
+site/public/
+site/resources/
+site/.hugo_build.lock
+# 生成的内容(220,000+ 文件,860MB)由 GitHub Actions 部署时动态生成
+site/content/
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 性能报告
+perf_reports/
+*.prof
+
+# 临时测试目录
+/tmp/test_content
+

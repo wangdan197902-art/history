@@ -1,0 +1,56 @@
+{
+  "date": "2024-02-27",
+  "country_code": "PH",
+  "events": [
+    {
+      "id": "evt_0227_PH_000",
+      "date": "2024-02-27",
+      "year": 1800,
+      "title": "[PH] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/PH_02-27",
+      "categories": [
+        "mock",
+        "ph",
+        "historical"
+      ],
+      "location": "PH",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0227_PH_001",
+      "date": "2024-02-27",
+      "year": 2020,
+      "title": "[PH] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/PH_02-27",
+      "categories": [
+        "mock",
+        "ph",
+        "historical"
+      ],
+      "location": "PH",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0227_PH_002",
+      "date": "2024-02-27",
+      "year": 1900,
+      "title": "[PH] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/PH_02-27",
+      "categories": [
+        "mock",
+        "ph",
+        "historical"
+      ],
+      "location": "PH",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

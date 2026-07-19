@@ -1,0 +1,56 @@
+{
+  "date": "2024-02-03",
+  "country_code": "SA",
+  "events": [
+    {
+      "id": "evt_0203_SA_000",
+      "date": "2024-02-03",
+      "year": 2020,
+      "title": "[SA] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/SA_02-03",
+      "categories": [
+        "mock",
+        "sa",
+        "historical"
+      ],
+      "location": "SA",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0203_SA_001",
+      "date": "2024-02-03",
+      "year": 1900,
+      "title": "[SA] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/SA_02-03",
+      "categories": [
+        "mock",
+        "sa",
+        "historical"
+      ],
+      "location": "SA",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0203_SA_002",
+      "date": "2024-02-03",
+      "year": 1950,
+      "title": "[SA] 重要历史事件二",
+      "description": "该地区20世纪中叶的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/SA_02-03",
+      "categories": [
+        "mock",
+        "sa",
+        "historical"
+      ],
+      "location": "SA",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

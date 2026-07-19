@@ -1,0 +1,214 @@
+openapi: 3.0.3
+info:
+  title: Google Search Console API
+  version: 1.0.0
+  description: |
+    Google Search Console API 契约
+    用于提交 sitemap 和查询搜索分析数据
+    Mock 端点: http://127.0.0.1:8765/gsc
+    生产端点: https://www.googleapis.com/webmasters/v3
+servers:
+  - url: https://www.googleapis.com/webmasters/v3
+    description: 生产环境
+  - url: http://127.0.0.1:8765/gsc
+    description: Mock 环境(本地开发)
+security:
+  - BearerAuth: []
+  - OAuth2: [https://www.googleapis.com/auth/webmasters]
+paths:
+  /sites/{siteUrl}/sitemaps:
+    get:
+      summary: 获取 sitemap 列表
+      operationId: listSitemaps
+      tags: [gsc]
+      parameters:
+        - name: siteUrl
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "https://today-in-history.example.com/"
+        - name: pageToken
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sitemap:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Sitemap'
+                  nextPageToken:
+                    type: string
+                    nullable: true
+    post:
+      summary: 提交 sitemap
+      operationId: submitSitemap
+      tags: [gsc]
+      parameters:
+        - name: siteUrl
+          in: path
+          required: true
+          schema: { type: string }
+        - name: feedpath
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "https://today-in-history.example.com/sitemap.xml"
+      responses:
+        '200':
+          description: 提交成功
+  /sites/{siteUrl}/sitemaps/{feedpath}:
+    delete:
+      summary: 删除 sitemap
+      operationId: deleteSitemap
+      tags: [gsc]
+      parameters:
+        - name: siteUrl
+          in: path
+          required: true
+          schema: { type: string }
+        - name: feedpath
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '204':
+          description: 删除成功
+  /sites/{siteUrl}/searchAnalytics/query:
+    post:
+      summary: 查询搜索分析数据
+      operationId: querySearchAnalytics
+      tags: [gsc]
+      parameters:
+        - name: siteUrl
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchAnalyticsQuery'
+            example:
+              startDate: "2026-06-01"
+              endDate: "2026-06-30"
+              dimensions: ["query", "page"]
+              rowLimit: 100
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        keys:
+                          type: array
+                          items: { type: string }
+                        clicks: { type: integer }
+                        impressions: { type: integer }
+                        ctr: { type: number }
+                        position: { type: number }
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/webmasters: "View and manage Search Console sites"
+  schemas:
+    Sitemap:
+      type: object
+      properties:
+        path:
+          type: string
+          description: Sitemap URL
+          example: "https://today-in-history.example.com/sitemap.xml"
+        lastSubmitted:
+          type: string
+          format: date-time
+        isPending:
+          type: boolean
+        isSitemapsIndex:
+          type: boolean
+        type:
+          type: string
+          enum: [sitemap, sitemapIndex]
+        errors:
+          type: string
+        warnings:
+          type: string
+        contents:
+          type: array
+          items:
+            type: object
+            properties:
+              type: { type: string }
+              submitted: { type: integer }
+              indexed: { type: integer }
+    SearchAnalyticsQuery:
+      type: object
+      required: [startDate, endDate]
+      properties:
+        startDate:
+          type: string
+          format: date
+          description: 开始日期
+        endDate:
+          type: string
+          format: date
+          description: 结束日期
+        dimensions:
+          type: array
+          items:
+            type: string
+            enum: [query, page, device, country]
+          description: 分组维度
+        dimensionFilterGroups:
+          type: array
+          items:
+            type: object
+            properties:
+              groupType:
+                type: string
+                enum: [and]
+              filters:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    dimension: { type: string }
+                    operator: { type: string, enum: [contains, equals, notContains] }
+                    expression: { type: string }
+        aggregationType:
+          type: string
+          enum: [auto, byPage, byProperty]
+          default: auto
+        rowLimit:
+          type: integer
+          minimum: 1
+          maximum: 5000
+          default: 1000
+        startRow:
+          type: integer
+          minimum: 0
+          default: 0

@@ -1,0 +1,91 @@
+name: Deploy to Netlify
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # 每日北京时间 8:00 自动构建(UTC 0:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.140.0'
+          extended: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Python dependencies
+        run: |
+          pip install --quiet pydantic pydantic-settings diskcache httpx tenacity
+
+      - name: Generate full site content
+        run: |
+          echo "🚀 生成全量内容: 30地区 × 366天 × 20语种 = 219,600 页面"
+          python3 scripts/generate_full_site.py --output-dir=site/content 2>&1 | tail -10
+
+      - name: Build with Hugo
+        run: |
+          cd site
+          hugo --minify --baseURL "https://history.ai-term-hub.com/"
+        env:
+          HUGO_ENV: production
+
+      - name: Build Pagefind Search Index
+        run: |
+          cd site
+          npx pagefind --site public/
+        continue-on-error: true
+
+      - name: Verify build output
+        run: |
+          echo "=== 构建产物统计 ==="
+          find site/public -name "*.html" | wc -l
+          du -sh site/public/
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: './site/public'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions ${{ github.event.head_commit.message }}"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Workflow summary
+        if: always()
+        run: |
+          echo "=== Deploy Workflow 总结 ==="
+          echo "触发: ${{ github.event_name }}"
+          echo "分支: ${{ github.ref }}"
+          echo "提交: ${{ github.sha }}"
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "✅ 部署成功 - 访问 https://history.ai-term-hub.com"
+          else
+            echo "❌ 部署失败"
+          fi

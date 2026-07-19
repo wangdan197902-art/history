@@ -1,0 +1,179 @@
+openapi: 3.0.3
+info:
+  title: OpenAI Chat Completions API
+  version: 1.0.0
+  description: |
+    OpenAI Chat Completions API 契约
+    用于将地区化事件翻译为 10 种语言
+    Mock 端点: http://127.0.0.1:8765/openai
+    生产端点: https://api.openai.com/v1
+servers:
+  - url: https://api.openai.com/v1
+    description: 生产环境
+  - url: http://127.0.0.1:8765/openai
+    description: Mock 环境(本地开发)
+security:
+  - BearerAuth: []
+paths:
+  /chat/completions:
+    post:
+      summary: 创建聊天补全
+      description: 用于将历史事件翻译为多种语言
+      operationId: createChatCompletion
+      tags: [openai]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+            example:
+              model: "gpt-4o"
+              messages:
+                - role: "system"
+                  content: "你是专业翻译,将历史事件翻译为指定语言,保持中立和准确。"
+                - role: "user"
+                  content: "原文:1921年中国共产党第一次全国代表大会在上海召开\n目标语言:English\n请翻译:"
+              temperature: 0.3
+              response_format:
+                type: "text"
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+              example:
+                id: "chatcmpl-abc123"
+                object: "chat.completion"
+                created: 1721400000
+                model: "gpt-4o"
+                choices:
+                  - index: 0
+                    message:
+                      role: "assistant"
+                      content: "In 1921, the First National Congress of the Chinese Communist Party was held in Shanghai."
+                    finish_reason: "stop"
+                usage:
+                  prompt_tokens: 50
+                  completion_tokens: 30
+                  total_tokens: 80
+        '401':
+          description: 未授权
+        '429':
+          description: 限流
+        '500':
+          description: 服务器错误
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    ChatCompletionRequest:
+      type: object
+      required: [model, messages]
+      properties:
+        model:
+          type: string
+          enum: [gpt-4o, gpt-4o-mini, gpt-4-turbo]
+          description: 模型 ID
+          example: "gpt-4o"
+        messages:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+          description: 对话消息列表
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 0.7
+          description: 温度参数
+        max_tokens:
+          type: integer
+          minimum: 1
+          description: 最大输出 token 数
+        response_format:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [text, json_object]
+              default: text
+              description: 响应格式
+        stream:
+          type: boolean
+          default: false
+          description: 是否流式输出
+        n:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 1
+          description: 生成几个候选响应
+    ChatMessage:
+      type: object
+      required: [role, content]
+      properties:
+        role:
+          type: string
+          enum: [system, user, assistant]
+          description: 角色
+        content:
+          type: string
+          description: 消息内容
+        name:
+          type: string
+          description: 消息发送者名称(可选)
+    ChatCompletionResponse:
+      type: object
+      required: [id, object, created, model, choices, usage]
+      properties:
+        id:
+          type: string
+          description: 响应 ID
+        object:
+          type: string
+          enum: [chat.completion]
+          description: 对象类型
+        created:
+          type: integer
+          description: 创建时间戳
+        model:
+          type: string
+          description: 实际使用的模型
+        choices:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ChatChoice'
+          description: 候选响应列表
+        usage:
+          type: object
+          required: [prompt_tokens, completion_tokens, total_tokens]
+          properties:
+            prompt_tokens:
+              type: integer
+              description: 输入 token 数
+            completion_tokens:
+              type: integer
+              description: 输出 token 数
+            total_tokens:
+              type: integer
+              description: 总 token 数
+    ChatChoice:
+      type: object
+      required: [index, message, finish_reason]
+      properties:
+        index:
+          type: integer
+          description: 候选索引
+        message:
+          $ref: '#/components/schemas/ChatMessage'
+        finish_reason:
+          type: string
+          enum: [stop, length, content_filter, tool_calls]
+          description: 完成原因

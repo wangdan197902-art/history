@@ -1,0 +1,155 @@
+# ===========================================
+# Hugo 配置 - 地区化今天历史档案站
+# 30 地区 × 20 语种 × 366 天 = 219,600+ 页面
+# ===========================================
+
+baseURL = "https://history.ai-term-hub.com/"
+languageCode = "zh"
+title = "今天历史 · 地区化档案站"
+defaultContentLanguage = "zh"
+enableRobotsTXT = true
+enableGitInfo = false
+buildDrafts = false
+buildFuture = false
+
+# 构建配置
+[build]
+  useResourceCacheWhen = "always"
+  writeStats = true
+  noJSConfigInAssets = true
+
+# 多语种配置(20 语种 - Hugo 0.158+ 使用 label 替代 languageName)
+[languages]
+[languages.zh]
+  label = "中文"
+  weight = 1
+  title = "今天历史"
+[languages.en]
+  label = "English"
+  weight = 2
+  title = "Today in History"
+[languages.ja]
+  label = "日本語"
+  weight = 3
+  title = "今日の歴史"
+[languages.ko]
+  label = "한국어"
+  weight = 4
+  title = "오늘의 역사"
+[languages.es]
+  label = "Español"
+  weight = 5
+  title = "Hoy en la Historia"
+[languages.fr]
+  label = "Français"
+  weight = 6
+  title = "Aujourd'hui dans l'Histoire"
+[languages.de]
+  label = "Deutsch"
+  weight = 7
+  title = "Heute in der Geschichte"
+[languages.pt]
+  label = "Português"
+  weight = 8
+  title = "Hoje na História"
+[languages.ru]
+  label = "Русский"
+  weight = 9
+  title = "Сегодня в Истории"
+[languages.ar]
+  label = "العربية"
+  weight = 10
+  title = "اليوم في التاريخ"
+  languageDirection = "rtl"
+[languages.it]
+  label = "Italiano"
+  weight = 11
+  title = "Oggi nella Storia"
+[languages.nl]
+  label = "Nederlands"
+  weight = 12
+  title = "Vandaag in de Geschiedenis"
+[languages.pl]
+  label = "Polski"
+  weight = 13
+  title = "Dziś w Historii"
+[languages.tr]
+  label = "Türkçe"
+  weight = 14
+  title = "Bugün Tarihte"
+[languages.vi]
+  label = "Tiếng Việt"
+  weight = 15
+  title = "Hôm nay trong Lịch sử"
+[languages.th]
+  label = "ไทย"
+  weight = 16
+  title = "วันนี้ในประวัติศาสตร์"
+[languages.id]
+  label = "Bahasa Indonesia"
+  weight = 17
+  title = "Hari Ini dalam Sejarah"
+[languages.sv]
+  label = "Svenska"
+  weight = 18
+  title = "Idag i Historien"
+[languages.cs]
+  label = "Čeština"
+  weight = 19
+  title = "Dnes v Historii"
+[languages.da]
+  label = "Dansk"
+  weight = 20
+  title = "I Dag i Historien"
+
+# Markdown 渲染
+[markup]
+[markup.goldmark]
+[markup.goldmark.renderer]
+  unsafe = true
+[markup.goldmark.parser]
+  autoHeadingID = true
+  autoHeadingIDType = "github"
+[markup.highlight]
+  style = "github-dark"
+  lineNos = false
+  codeFences = true
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 4
+
+# 缓存目录
+[caches.images]
+  dir = ":cacheDir/hugo_tih_images"
+
+# 输出格式
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  page = ["HTML"]
+
+# 站点参数
+[params]
+  description = "地区化今天历史档案站 — 30 地区 × 20 语种 × 366 天 = 219,600+ 页面"
+  author = "Today in History Archive"
+  # 30 地区列表(逗号分隔)
+  countries = "CN,US,JP,KR,UK,DE,FR,RU,BR,IN,AU,CA,IT,ES,MX,ID,TH,VN,SG,MY,PH,SA,AE,EG,ZA,NG,TR,PL,NL,SE"
+  # 20 语种列表
+  languages = "zh,en,ja,ko,es,fr,de,pt,ru,ar,it,nl,pl,tr,vi,th,id,sv,cs,da"
+  # SEO
+  googleAnalytics = ""
+  googleSiteVerification = ""
+
+# 分页
+[pagination]
+  pageSize = 30
+
+# 隐私
+[services]
+[services.googleAnalytics]
+  id = ""
+
+# 服务器配置(开发用)
+[server]
+  headers = true
+  watch = true

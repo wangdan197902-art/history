@@ -1,0 +1,56 @@
+{
+  "date": "2024-12-23",
+  "country_code": "DE",
+  "events": [
+    {
+      "id": "evt_1223_DE_000",
+      "date": "2024-12-23",
+      "year": 1990,
+      "title": "[DE] 两德统一",
+      "description": "东德正式加入西德,德国重新统一。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/DE_12-23",
+      "categories": [
+        "mock",
+        "de",
+        "historical"
+      ],
+      "location": "DE",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1223_DE_001",
+      "date": "2024-12-23",
+      "year": 1871,
+      "title": "[DE] 德意志帝国建立",
+      "description": "普鲁士国王威廉一世在凡尔赛宫加冕为德意志皇帝。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/DE_12-23",
+      "categories": [
+        "mock",
+        "de",
+        "historical"
+      ],
+      "location": "DE",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1223_DE_002",
+      "date": "2024-12-23",
+      "year": 1919,
+      "title": "[DE] 魏玛共和国建立",
+      "description": "德国国民议会在魏玛召开,魏玛共和国成立。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/DE_12-23",
+      "categories": [
+        "mock",
+        "de",
+        "historical"
+      ],
+      "location": "DE",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

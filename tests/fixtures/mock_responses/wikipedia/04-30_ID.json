@@ -1,0 +1,56 @@
+{
+  "date": "2024-04-30",
+  "country_code": "ID",
+  "events": [
+    {
+      "id": "evt_0430_ID_000",
+      "date": "2024-04-30",
+      "year": 1800,
+      "title": "[ID] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/ID_04-30",
+      "categories": [
+        "mock",
+        "id",
+        "historical"
+      ],
+      "location": "ID",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0430_ID_001",
+      "date": "2024-04-30",
+      "year": 2020,
+      "title": "[ID] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/ID_04-30",
+      "categories": [
+        "mock",
+        "id",
+        "historical"
+      ],
+      "location": "ID",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0430_ID_002",
+      "date": "2024-04-30",
+      "year": 1900,
+      "title": "[ID] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/ID_04-30",
+      "categories": [
+        "mock",
+        "id",
+        "historical"
+      ],
+      "location": "ID",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

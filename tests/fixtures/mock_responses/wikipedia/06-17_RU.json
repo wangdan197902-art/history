@@ -1,0 +1,56 @@
+{
+  "date": "2024-06-17",
+  "country_code": "RU",
+  "events": [
+    {
+      "id": "evt_0617_RU_000",
+      "date": "2024-06-17",
+      "year": 2000,
+      "title": "[RU] 重要历史事件三",
+      "description": "该地区21世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/RU_06-17",
+      "categories": [
+        "mock",
+        "ru",
+        "historical"
+      ],
+      "location": "RU",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0617_RU_001",
+      "date": "2024-06-17",
+      "year": 1800,
+      "title": "[RU] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/RU_06-17",
+      "categories": [
+        "mock",
+        "ru",
+        "historical"
+      ],
+      "location": "RU",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0617_RU_002",
+      "date": "2024-06-17",
+      "year": 2020,
+      "title": "[RU] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/RU_06-17",
+      "categories": [
+        "mock",
+        "ru",
+        "historical"
+      ],
+      "location": "RU",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

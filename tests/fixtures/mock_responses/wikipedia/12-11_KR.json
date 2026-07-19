@@ -1,0 +1,56 @@
+{
+  "date": "2024-12-11",
+  "country_code": "KR",
+  "events": [
+    {
+      "id": "evt_1211_KR_000",
+      "date": "2024-12-11",
+      "year": 1988,
+      "title": "[KR] 汉城奥运会",
+      "description": "第24届夏季奥林匹克运动会在汉城(今首尔)开幕。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/KR_12-11",
+      "categories": [
+        "mock",
+        "kr",
+        "historical"
+      ],
+      "location": "KR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1211_KR_001",
+      "date": "2024-12-11",
+      "year": 2018,
+      "title": "[KR] 平昌冬奥会",
+      "description": "第23届冬季奥林匹克运动会在平昌开幕。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/KR_12-11",
+      "categories": [
+        "mock",
+        "kr",
+        "historical"
+      ],
+      "location": "KR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_1211_KR_002",
+      "date": "2024-12-11",
+      "year": 2022,
+      "title": "[KR] 梨泰院踩踏事故",
+      "description": "首尔梨泰院发生严重踩踏事故,造成159人死亡。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/KR_12-11",
+      "categories": [
+        "mock",
+        "kr",
+        "historical"
+      ],
+      "location": "KR",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

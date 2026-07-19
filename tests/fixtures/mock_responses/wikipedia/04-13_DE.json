@@ -1,0 +1,56 @@
+{
+  "date": "2024-04-13",
+  "country_code": "DE",
+  "events": [
+    {
+      "id": "evt_0413_DE_000",
+      "date": "2024-04-13",
+      "year": 1919,
+      "title": "[DE] 魏玛共和国建立",
+      "description": "德国国民议会在魏玛召开,魏玛共和国成立。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/DE_04-13",
+      "categories": [
+        "mock",
+        "de",
+        "historical"
+      ],
+      "location": "DE",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0413_DE_001",
+      "date": "2024-04-13",
+      "year": 1933,
+      "title": "[DE] 希特勒上台",
+      "description": "希特勒被任命为德国总理,纳粹党开始执政。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/DE_04-13",
+      "categories": [
+        "mock",
+        "de",
+        "historical"
+      ],
+      "location": "DE",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0413_DE_002",
+      "date": "2024-04-13",
+      "year": 1945,
+      "title": "[DE] 德国投降",
+      "description": "纳粹德国无条件投降,二战欧洲战场结束。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/DE_04-13",
+      "categories": [
+        "mock",
+        "de",
+        "historical"
+      ],
+      "location": "DE",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

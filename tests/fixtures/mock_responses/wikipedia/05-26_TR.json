@@ -1,0 +1,56 @@
+{
+  "date": "2024-05-26",
+  "country_code": "TR",
+  "events": [
+    {
+      "id": "evt_0526_TR_000",
+      "date": "2024-05-26",
+      "year": 1900,
+      "title": "[TR] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/TR_05-26",
+      "categories": [
+        "mock",
+        "tr",
+        "historical"
+      ],
+      "location": "TR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0526_TR_001",
+      "date": "2024-05-26",
+      "year": 1950,
+      "title": "[TR] 重要历史事件二",
+      "description": "该地区20世纪中叶的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/TR_05-26",
+      "categories": [
+        "mock",
+        "tr",
+        "historical"
+      ],
+      "location": "TR",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0526_TR_002",
+      "date": "2024-05-26",
+      "year": 2000,
+      "title": "[TR] 重要历史事件三",
+      "description": "该地区21世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/TR_05-26",
+      "categories": [
+        "mock",
+        "tr",
+        "historical"
+      ],
+      "location": "TR",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2024-07-30",
+  "country_code": "UK",
+  "events": [
+    {
+      "id": "evt_0730_UK_000",
+      "date": "2024-07-30",
+      "year": 1215,
+      "title": "[UK] 大宪章签署",
+      "description": "英王约翰被迫签署《大宪章》,限制王权。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_07-30",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0730_UK_001",
+      "date": "2024-07-30",
+      "year": 1707,
+      "title": "[UK] 联合法案",
+      "description": "英格兰与苏格兰合并,形成大不列颠王国。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_07-30",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0730_UK_002",
+      "date": "2024-07-30",
+      "year": 1940,
+      "title": "[UK] 不列颠空战",
+      "description": "英国皇家空军击败德国空军,保卫了英国本土。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/UK_07-30",
+      "categories": [
+        "mock",
+        "uk",
+        "historical"
+      ],
+      "location": "UK",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

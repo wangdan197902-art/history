@@ -1,0 +1,56 @@
+{
+  "date": "2024-02-03",
+  "country_code": "JP",
+  "events": [
+    {
+      "id": "evt_0203_JP_000",
+      "date": "2024-02-03",
+      "year": 2019,
+      "title": "[JP] 令和开元",
+      "description": "日本改元令和,明仁天皇退位,德仁天皇即位。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/JP_02-03",
+      "categories": [
+        "mock",
+        "jp",
+        "historical"
+      ],
+      "location": "JP",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0203_JP_001",
+      "date": "2024-02-03",
+      "year": 1868,
+      "title": "[JP] 明治维新",
+      "description": "明治天皇即位,日本开始明治维新,走向近代化。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/JP_02-03",
+      "categories": [
+        "mock",
+        "jp",
+        "historical"
+      ],
+      "location": "JP",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0203_JP_002",
+      "date": "2024-02-03",
+      "year": 1945,
+      "title": "[JP] 广岛原爆",
+      "description": "美国在日本广岛投下原子弹,加速了二战结束。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/JP_02-03",
+      "categories": [
+        "mock",
+        "jp",
+        "historical"
+      ],
+      "location": "JP",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2024-06-30",
+  "country_code": "CN",
+  "events": [
+    {
+      "id": "evt_0630_CN_000",
+      "date": "2024-06-30",
+      "year": 1921,
+      "title": "[CN] 中国共产党成立",
+      "description": "中国共产党第一次全国代表大会在上海召开,标志着中国共产党成立。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_06-30",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0630_CN_001",
+      "date": "2024-06-30",
+      "year": 1949,
+      "title": "[CN] 中华人民共和国成立",
+      "description": "毛泽东在北京天安门城楼宣告中华人民共和国中央人民政府成立。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_06-30",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0630_CN_002",
+      "date": "2024-06-30",
+      "year": 1911,
+      "title": "[CN] 辛亥革命",
+      "description": "孙中山领导的辛亥革命推翻了清朝统治,结束了中国两千多年的封建君主制。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/CN_06-30",
+      "categories": [
+        "mock",
+        "cn",
+        "historical"
+      ],
+      "location": "CN",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

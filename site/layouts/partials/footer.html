@@ -1,0 +1,10 @@
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; {{ now.Format "2006" }} {{ .Site.Title }}. 数据来源 Wikipedia (Mock).</p>
+    <nav class="footer-langs">
+    {{ range $.Site.Languages }}
+      <a href="/{{ .Lang }}/">{{ .LanguageName }}</a>
+    {{ end }}
+    </nav>
+  </div>
+</footer>

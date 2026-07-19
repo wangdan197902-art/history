@@ -1,0 +1,56 @@
+{
+  "date": "2024-03-28",
+  "country_code": "JP",
+  "events": [
+    {
+      "id": "evt_0328_JP_000",
+      "date": "2024-03-28",
+      "year": 1868,
+      "title": "[JP] 明治维新",
+      "description": "明治天皇即位,日本开始明治维新,走向近代化。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/JP_03-28",
+      "categories": [
+        "mock",
+        "jp",
+        "historical"
+      ],
+      "location": "JP",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0328_JP_001",
+      "date": "2024-03-28",
+      "year": 1945,
+      "title": "[JP] 广岛原爆",
+      "description": "美国在日本广岛投下原子弹,加速了二战结束。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/JP_03-28",
+      "categories": [
+        "mock",
+        "jp",
+        "historical"
+      ],
+      "location": "JP",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0328_JP_002",
+      "date": "2024-03-28",
+      "year": 1964,
+      "title": "[JP] 东京奥运会",
+      "description": "第18届夏季奥林匹克运动会在东京开幕,亚洲首次举办奥运。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/JP_03-28",
+      "categories": [
+        "mock",
+        "jp",
+        "historical"
+      ],
+      "location": "JP",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2024-09-20",
+  "country_code": "MX",
+  "events": [
+    {
+      "id": "evt_0920_MX_000",
+      "date": "2024-09-20",
+      "year": 1800,
+      "title": "[MX] 古代历史事件",
+      "description": "该地区古代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/MX_09-20",
+      "categories": [
+        "mock",
+        "mx",
+        "historical"
+      ],
+      "location": "MX",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0920_MX_001",
+      "date": "2024-09-20",
+      "year": 2020,
+      "title": "[MX] 当代历史事件",
+      "description": "该地区当代的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/MX_09-20",
+      "categories": [
+        "mock",
+        "mx",
+        "historical"
+      ],
+      "location": "MX",
+      "deaths": null,
+      "injuries": null
+    },
+    {
+      "id": "evt_0920_MX_002",
+      "date": "2024-09-20",
+      "year": 1900,
+      "title": "[MX] 重要历史事件一",
+      "description": "该地区20世纪初的重要历史事件。",
+      "wikipedia_url": "https://en.wikipedia.org/wiki/MX_09-20",
+      "categories": [
+        "mock",
+        "mx",
+        "historical"
+      ],
+      "location": "MX",
+      "deaths": null,
+      "injuries": null
+    }
+  ],
+  "source": "wikipedia_mock",
+  "fetched_at": "2026-07-19T00:00:00Z"
+}

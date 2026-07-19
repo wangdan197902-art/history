@@ -1,0 +1,48 @@
+[build]
+  command = "pip install pydantic pydantic-settings diskcache httpx tenacity && python3 scripts/generate_full_site.py && cd site && hugo --minify --baseURL https://history.ai-term-hub.com/ && npx pagefind --site public/"
+  publish = "site/public"
+
+[build.environment]
+  HUGO_VERSION = "0.140.0"
+  HUGO_ENABLEGITINFO = "true"
+  PYTHON_VERSION = "3.11"
+  NODE_VERSION = "20"
+
+[context.production.environment]
+  HUGO_ENV = "production"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "/pagefind/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    Content-Type = "application/json"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+    Cache-Control = "public, max-age=3600"
+
+[[redirects]]
+  from = "/on-this-day/:country/:date/"
+  to = "/zh/:country/:date/"
+  status = 302
+
+[[redirects]]
+  from = "/api/search"
+  to = "/.netlify/functions/search"
+  status = 200

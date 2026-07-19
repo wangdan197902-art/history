@@ -1,0 +1,22 @@
+{{ with .Params.events }}
+<section class="day-events">
+  <h2>历史事件</h2>
+  <ol>
+  {{ range . }}
+    <li class="event">
+      <span class="event-year">{{ .year }}</span>
+      <div class="event-body">
+        <h3>{{ .title }}</h3>
+        <p>{{ .description }}</p>
+        {{ with .image_url }}
+        <figure>
+          <img src="{{ . }}" alt="{{ $.title }}" loading="lazy">
+          {{ with $.image_caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+        </figure>
+        {{ end }}
+      </div>
+    </li>
+  {{ end }}
+  </ol>
+</section>
+{{ end }}
