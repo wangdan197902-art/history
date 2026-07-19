@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # 每日北京时间 8:00 自动构建(UTC 0:00)
+    # 每日北京时间8:00自动构建(UTC 0:00)
     - cron: '0 0 * * *'
   workflow_dispatch:
 
@@ -15,7 +15,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,21 +64,47 @@ jobs:
           find site/public -name "*.html" | wc -l
           du -sh site/public/
 
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli@17
-
-      - name: Deploy to Netlify
+      - name: Package site as zip
         run: |
-          netlify deploy \
-            --dir=site/public \
-            --prod \
-            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} \
-            --site ${{ secrets.NETLIFY_SITE_ID }} \
-            --message "Deploy from GitHub Actions $(date -u +'%Y-%m-%d %H:%M:%S UTC')" \
-            --timeout 1800
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          echo "📦 打包 site/public 为 zip..."
+          cd site
+          zip -r -q ../site-public.zip public/
+          cd ..
+          ls -lh site-public.zip
+          echo "Zip 大小: $(du -h site-public.zip | cut -f1)"
+
+      - name: Deploy to Netlify via Zip API
+        run: |
+          echo "🚀 通过 Netlify API 上传 zip 部署..."
+          DEPLOY_RESPONSE=$(curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}" \
+            -H "Content-Type: application/zip" \
+            --data-binary @site-public.zip \
+            "https://api.netlify.com/api/v1/sites/${{ secrets.NETLIFY_SITE_ID }}/deploys?title=Deploy%20$(date%20-u%20+%20%27%25Y-%25m-%25d%20%25H:%25M:%25S%27)")
+          echo "API 响应:"
+          echo "$DEPLOY_RESPONSE" | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'Deploy ID: {d.get(\"id\")}'); print(f'State: {d.get(\"state\")}'); print(f'URL: {d.get(\"ssl_url\")}'); print(f'Admin: {d.get(\"admin_url\")}')"
+          DEPLOY_ID=$(echo "$DEPLOY_RESPONSE" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id',''))")
+          if [ -z "$DEPLOY_ID" ]; then
+            echo "❌ 部署失败: 未获取到 deploy ID"
+            exit 1
+          fi
+          echo "Deploy ID: $DEPLOY_ID"
+          # 等待部署完成(最多 10 分钟)
+          for i in $(seq 1 60); do
+            sleep 10
+            STATE=$(curl -s -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}" \
+              "https://api.netlify.com/api/v1/deploys/$DEPLOY_ID" | \
+              python3 -c "import json,sys; print(json.load(sys.stdin).get('state',''))")
+            echo "[$i/60] Deploy state: $STATE"
+            if [ "$STATE" = "ready" ]; then
+              echo "✅ 部署成功!"
+              break
+            fi
+            if [ "$STATE" = "error" ]; then
+              echo "❌ 部署失败!"
+              exit 1
+            fi
+          done
 
       - name: Workflow summary
         if: always()
