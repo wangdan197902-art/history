@@ -7,6 +7,12 @@ on:
     # 每日北京时间8:00自动构建(UTC 0:00)
     - cron: '0 0 * * *'
   workflow_dispatch:
+    inputs:
+      days_limit:
+        description: '限制生成天数(0=全部366天,50=测试用)'
+        required: false
+        default: '50'
+        type: string
 
 permissions:
   contents: read
@@ -42,8 +48,9 @@ jobs:
 
       - name: Generate full site content
         run: |
-          echo "🚀 生成全量内容: 30地区 × 366天 × 20语种 = 219,600 页面"
-          python3 scripts/generate_full_site.py --output-dir=site/content 2>&1 | tail -10
+          DAYS_LIMIT="${{ github.event.inputs.days_limit || '50' }}"
+          echo "🚀 生成内容: 30地区 × ${DAYS_LIMIT}天 × 20语种"
+          python3 scripts/generate_full_site.py --output-dir=site/content --limit-days=${DAYS_LIMIT} 2>&1 | tail -10
 
       - name: Build with Hugo
         run: |
