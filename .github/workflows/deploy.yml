@@ -64,15 +64,18 @@ jobs:
           find site/public -name "*.html" | wc -l
           du -sh site/public/
 
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli@17
+
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: './site/public'
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy from GitHub Actions ${{ github.event.head_commit.message }}"
-          enable-pull-request-comment: false
-          enable-commit-comment: false
+        run: |
+          netlify deploy \
+            --dir=site/public \
+            --prod \
+            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} \
+            --site ${{ secrets.NETLIFY_SITE_ID }} \
+            --message "Deploy from GitHub Actions $(date -u +'%Y-%m-%d %H:%M:%S UTC')" \
+            --timeout 1800
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
