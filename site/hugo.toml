@@ -81,10 +81,6 @@ buildFuture = false
   label = "Tiếng Việt"
   weight = 15
   title = "Hôm nay trong Lịch sử"
-[languages.th]
-  label = "ไทย"
-  weight = 16
-  title = "วันนี้ในประวัติศาสตร์"
 [languages.id]
   label = "Bahasa Indonesia"
   weight = 17

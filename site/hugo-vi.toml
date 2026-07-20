@@ -2,13 +2,13 @@
 #
 # 使用方式：
 #   1. 由 scripts/创建hugo配置.py 自动填充占位符并生成 hugo-{lang}.toml
-#   2. 占位符：vi / Tiếng Việt / history / ai-term-hub.com / https://vi.history.ai-term-hub.com/
+#   2. 占位符：vi / Tiếng Việt / history / ai-term-hub.com / https://history-vi.ai-term-hub.com/
 #   3. 与主 hugo.toml 一起使用：hugo --config hugo.toml,hugo-{lang}.toml
 #
 # 此配置会覆盖 hugo.toml 中的对应字段，实现单语种独立构建
 
 # ===== 基础URL（绑定自购三级域名） =====
-baseURL = "https://vi.history.ai-term-hub.com/"
+baseURL = "https://history-vi.ai-term-hub.com/"
 
 # ===== 语言设置 =====
 languageCode = "vi"
@@ -31,14 +31,14 @@ defaultContentLanguage = "vi"
   description = "AI Terms Dictionary in Tiếng Việt - Comprehensive AI terminology reference"
 
   # 自定义域名
-  customDomain = "vi.history.ai-term-hub.com"
+  customDomain = "history-vi.ai-term-hub.com"
 
   # 部署平台信息
   deploymentPlatform = "github-pages"
   repositoryName = "history-vi"
 
   # canonical（指向当前语种子站首页）
-  canonical = "https://vi.history.ai-term-hub.com/"
+  canonical = "https://history-vi.ai-term-hub.com/"
 
   # SEO 验证与追踪参数（由 scripts/添加验证标签.py 同步注入 layouts/seo.html）
   # 这些值会被 Hugo 模板读取并输出对应 meta 标签
@@ -53,31 +53,30 @@ defaultContentLanguage = "vi"
   # Hreflang alternates（指向其他语种子站）
   # 用于SEO多语种信号传递
   [params.alternates]
-    ar = "https://ar.history.ai-term-hub.com/"
-    cs = "https://cs.history.ai-term-hub.com/"
-    da = "https://da.history.ai-term-hub.com/"
-    de = "https://de.history.ai-term-hub.com/"
-    el = "https://el.history.ai-term-hub.com/"
-    en = "https://en.history.ai-term-hub.com/"
-    es = "https://es.history.ai-term-hub.com/"
-    fi = "https://fi.history.ai-term-hub.com/"
-    fr = "https://fr.history.ai-term-hub.com/"
-    hu = "https://hu.history.ai-term-hub.com/"
-    id = "https://id.history.ai-term-hub.com/"
-    it = "https://it.history.ai-term-hub.com/"
-    ja = "https://ja.history.ai-term-hub.com/"
-    ko = "https://ko.history.ai-term-hub.com/"
-    nl = "https://nl.history.ai-term-hub.com/"
-    no = "https://no.history.ai-term-hub.com/"
-    pl = "https://pl.history.ai-term-hub.com/"
-    pt = "https://pt.history.ai-term-hub.com/"
-    ro = "https://ro.history.ai-term-hub.com/"
-    ru = "https://ru.history.ai-term-hub.com/"
-    sv = "https://sv.history.ai-term-hub.com/"
-    th = "https://th.history.ai-term-hub.com/"
-    tr = "https://tr.history.ai-term-hub.com/"
-    vi = "https://vi.history.ai-term-hub.com/"
-    zh = "https://zh.history.ai-term-hub.com/"
+    ar = "https://history-ar.ai-term-hub.com/"
+    cs = "https://history-cs.ai-term-hub.com/"
+    da = "https://history-da.ai-term-hub.com/"
+    de = "https://history-de.ai-term-hub.com/"
+    el = "https://history-el.ai-term-hub.com/"
+    en = "https://history-en.ai-term-hub.com/"
+    es = "https://history-es.ai-term-hub.com/"
+    fi = "https://history-fi.ai-term-hub.com/"
+    fr = "https://history-fr.ai-term-hub.com/"
+    hu = "https://history-hu.ai-term-hub.com/"
+    id = "https://history-id.ai-term-hub.com/"
+    it = "https://history-it.ai-term-hub.com/"
+    ja = "https://history-ja.ai-term-hub.com/"
+    ko = "https://history-ko.ai-term-hub.com/"
+    nl = "https://history-nl.ai-term-hub.com/"
+    no = "https://history-no.ai-term-hub.com/"
+    pl = "https://history-pl.ai-term-hub.com/"
+    pt = "https://history-pt.ai-term-hub.com/"
+    ro = "https://history-ro.ai-term-hub.com/"
+    ru = "https://history-ru.ai-term-hub.com/"
+    sv = "https://history-sv.ai-term-hub.com/"
+    tr = "https://history-tr.ai-term-hub.com/"
+    vi = "https://history-vi.ai-term-hub.com/"
+    zh = "https://history-zh.ai-term-hub.com/"
 
 # ===== Sitemap 配置（单语种独立sitemap） =====
 [sitemap]
