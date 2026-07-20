@@ -243,10 +243,13 @@ Browse today in history by country:
         # 搜索页（Pagefind UI 容器，url: "/search/" 强制路由到根目录 /search/）
         # site/content/ 整个目录被 .gitignore 忽略，CI 动态生成内容时必须同时生成 search.md
         # 否则 /{lang}/search/ 返回 404，Pagefind 搜索功能不可用
+        # type: "search" 强制 Hugo 使用 layouts/search/single.html 而非 _default/single.html
+        # （否则 PagefindUI 初始化代码不会被注入，搜索页退化为普通文章页）
         search_file = lang_dir / "search.md"
         search_content = """---
 title: "Search"
 url: "/search/"
+type: "search"
 layout: "search"
 draft: false
 ---
