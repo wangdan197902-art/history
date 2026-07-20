@@ -240,6 +240,22 @@ Browse today in history by country:
         index_file.write_text(index_content, encoding="utf-8")
         count += 1
 
+        # 搜索页（Pagefind UI 容器，url: "/search/" 强制路由到根目录 /search/）
+        # site/content/ 整个目录被 .gitignore 忽略，CI 动态生成内容时必须同时生成 search.md
+        # 否则 /{lang}/search/ 返回 404，Pagefind 搜索功能不可用
+        search_file = lang_dir / "search.md"
+        search_content = """---
+title: "Search"
+url: "/search/"
+layout: "search"
+draft: false
+---
+
+Search across all historical events in this archive.
+"""
+        search_file.write_text(search_content, encoding="utf-8")
+        count += 1
+
         # 各地区子首页
         for country in countries:
             country_dir = lang_dir / country
