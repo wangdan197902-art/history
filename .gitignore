@@ -46,3 +46,22 @@ perf_reports/
 # 临时测试目录
 /tmp/test_content
 
+# ========== 补充：macOS resource forks / Hugo 构建产物 / 多语言输出 ==========
+
+# macOS resource forks（匹配 site/._.hugo_build.lock, site/._hugo_stats.json 等）
+**/._*
+._*
+
+# Hugo 构建产物（site/ 前缀，与现有 Hugo 段保持一致）
+site/hugo_stats.json
+site/_hugo_stats.json
+
+# 多语言构建输出目录
+site/public-*/
+
+# macOS 资源 fork 副本（显式）
+site/._resources
+
+# 环境变量示例文件
+.env.local.example
+
