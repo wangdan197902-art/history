@@ -48,6 +48,31 @@ jobs:
         continue-on-error: true
       - name: Add .nojekyll
         run: touch site/public/.nojekyll
+      - name: Inject GA4 + ensure SEO on root index.html
+        run: |
+          # 主入口根目录 index.html 由 Hugo 多语言重定向生成，不走 seo.html partial
+          # 强制注入 GA4 跟踪代码到根目录 index.html 的 </head> 之前
+          GA4_TAG='<script async src="https://www.googletagmanager.com/gtag/js?id=G-15279420781"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-15279420781");</script>'
+          if [ -f site/public/index.html ]; then
+            if ! grep -q "G-15279420781" site/public/index.html; then
+              python3 -c "
+          import re, sys
+          p = 'site/public/index.html'
+          with open(p, 'r', encoding='utf-8') as f:
+              html = f.read()
+          ga4 = '''<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-15279420781\"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-15279420781');</script>'''
+          if 'G-15279420781' not in html:
+              html = re.sub(r'</head>', ga4 + r'</head>', html, count=1)
+              with open(p, 'w', encoding='utf-8') as f:
+                  f.write(html)
+              print('✓ Injected GA4 into root index.html')
+          else:
+              print('✓ Root index.html already has GA4')
+          "
+            else
+              echo "✓ Root index.html already has GA4"
+            fi
+          fi
       - name: Ensure index.html
         run: |
           if [ ! -f site/public/index.html ]; then
