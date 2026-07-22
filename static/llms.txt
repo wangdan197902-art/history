@@ -1,0 +1,16 @@
+# AI History Hub
+
+> Explore AI development history and milestones across 20 languages. Find timeline of AI breakthroughs, key events, and historical context for artificial intelligence.
+
+## Site Overview
+- AI history events: 500+
+- Supported languages: 20
+- Page types: timeline, events, milestones, decades
+- Base URL: https://history.ai-term-hub.com/
+
+## Important Pages
+- [Home](https://history.ai-term-hub.com/)
+- [Timeline](https://history.ai-term-hub.com/en/timeline/)
+- [Key Events](https://history.ai-term-hub.com/en/events/)
+- [Decades](https://history.ai-term-hub.com/en/decades/)
+- [Sitemap](https://history.ai-term-hub.com/sitemap.xml)
