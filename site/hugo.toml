@@ -144,6 +144,8 @@ buildFuture = false
   # Google Search Console 验证（主入口 history.ai-term-hub.com）
   # 参数名与 hugo-{lang}.toml 中的 [params] 段落保持一致（snake_case）
   google_site_verification = "Po21SS8ccODMgK6x0_LBsBX0t5qz7bdqRzASwE-ngyo"
+  # Ahrefs 站点验证（与 seo.html 中 .Site.Params.ahrefs_site_verification 对应）
+  ahrefs_site_verification = "ad7fa89d439de59a24f2c0539f078231d409b57876cd4088b2e41eafe03df321"
   # 兼容旧命名（保留空值，避免 config 读取异常）
   googleSiteVerification = ""
 
