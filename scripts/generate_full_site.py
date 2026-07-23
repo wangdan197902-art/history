@@ -15,11 +15,14 @@
     --languages: 限制语种(逗号分隔,空=全部20)
 """
 import argparse
+import copy
 import hashlib
 import json
 import re
 import sys
 import time
+import urllib.error
+import urllib.request
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -308,16 +311,105 @@ def translate_event_title(title: str, description: str, lang: str, country_code:
     return f"{prefix}{title}", f"{prefix}{description}"
 
 
+# === Wikipedia API 回退(当 fixture 不存在时) ===
+# 按日期缓存的 Wikipedia API 响应(MM-DD → dict),同一天所有国家共享
+_WIKI_CACHE: dict[str, dict | None] = {}
+
+
+def fetch_wikipedia_events(month: str, day: str) -> dict | None:
+    """从 Wikipedia REST API 获取当日全球历史事件
+
+    当 fixture 文件不存在时,回退到 Wikipedia API。
+    API: https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/{MM}/{DD}
+    结果按日期缓存,同一天所有 30 个国家共享同一份数据。
+    """
+    cache_key = f"{month}-{day}"
+    if cache_key in _WIKI_CACHE:
+        return _WIKI_CACHE[cache_key]
+
+    url = (
+        "https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/"
+        f"{month}/{day}"
+    )
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "TodayInHistoryArchive/1.0 "
+            "(https://history.ai-term-hub.com)"
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except Exception as e:
+        print(f"  ⚠️ Wikipedia API 获取失败 {month}-{day}: {e}")
+        _WIKI_CACHE[cache_key] = None
+        return None
+
+    events = []
+    for idx, wiki_event in enumerate(data.get("events", [])[:20]):
+        year = wiki_event.get("year", 2000)
+        text = wiki_event.get("text", "")
+        pages = wiki_event.get("pages", [])
+        wiki_url = ""
+        if pages:
+            content_urls = pages[0].get("content_urls", {})
+            wiki_url = (
+                content_urls.get("desktop", {}).get("page", "")
+                or content_urls.get("page", "")
+            )
+
+        events.append({
+            "id": f"evt_{month}{day}_WK_{idx:03d}",
+            "date": f"2024-{month}-{day}",
+            "year": year,
+            "title": text[:100],
+            "description": text,
+            "wikipedia_url": wiki_url,
+            "categories": ["wikipedia", "historical"],
+            "location": None,
+            "deaths": None,
+            "injuries": None,
+        })
+
+    result = {
+        "date": f"2024-{month}-{day}",
+        "country_code": "WORLD",
+        "events": events,
+    }
+    _WIKI_CACHE[cache_key] = result
+    print(f"  📡 Wikipedia API: {month}-{day} → {len(events)} events")
+    return result
+
+
 def load_event_pool(month: str, day: str, country: str) -> dict | None:
-    """从 fixture 加载事件池"""
+    """加载事件池: 优先 fixture,回退 Wikipedia API
+
+    1. 优先从 tests/fixtures/mock_responses/wikipedia/{MM-DD}_{country}.json 加载
+    2. fixture 不存在时,从 Wikipedia REST API 获取当日全球历史事件
+       (按日期缓存,同一天所有国家共享同一份数据,仅替换 country_code)
+    """
+    # 1. 优先从 fixture 加载(已有 7 天 × 30 地区 = 210 个 fixture)
     fixture_path = (
         PROJECT_ROOT / "tests" / "fixtures" / "mock_responses" / "wikipedia"
         / f"{month}-{day}_{country}.json"
     )
-    if not fixture_path.exists():
+    if fixture_path.exists():
+        with open(fixture_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    # 2. 回退到 Wikipedia API(按日期缓存,所有国家共享)
+    wiki_data = fetch_wikipedia_events(month, day)
+    if wiki_data is None:
         return None
-    with open(fixture_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+
+    # 为当前国家创建副本,替换 country_code 和事件 ID
+    pool = copy.deepcopy(wiki_data)
+    pool["country_code"] = country
+    for evt in pool["events"]:
+        evt["id"] = evt["id"].replace("_WK_", f"_{country}_")
+        evt["location"] = country
+    return pool
 
 
 def generate_markdown_for_day(
@@ -373,8 +465,9 @@ def generate_markdown_for_day(
             f"*{image_caption}*\n"
         )
 
-    # 输出路径: site/content/{lang}/{country}/{MM-DD}.md
-    out_path = output_dir / lang / country / f"{month}-{day}.md"
+    # 输出路径: site/content/{lang}/{country.lower()}/{MM-DD}.md
+    # 注: URL 路径大小写敏感(Linux),统一使用小写国家代码避免 404
+    out_path = output_dir / lang / country.lower() / f"{month}-{day}.md"
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     content = f"""---
