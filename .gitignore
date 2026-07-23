@@ -65,3 +65,11 @@ site/._resources
 # 环境变量示例文件
 .env.local.example
 
+# LLM 配置(包含 API Key,用户本地填写,不提交)
+# llm.config.example.toml 是占位符版本,会被提交
+# llm.config.toml 是实际值版本,被排除
+llm.config.toml
+
+# LLM 翻译缓存(diskcache 自动生成)
+.cache/llm_translations/
+

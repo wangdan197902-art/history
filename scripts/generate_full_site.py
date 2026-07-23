@@ -15,11 +15,22 @@
     --languages: 限制语种(逗号分隔,空=全部20)
 """
 import argparse
+import hashlib
 import json
+import re
 import sys
 import time
 from datetime import date, timedelta
 from pathlib import Path
+
+# tomllib 为 Python 3.11+ 标准库;3.10 及以下尝试外部 backport tomli,均不可用则降级
+try:
+    import tomllib  # Python 3.11+ 标准库
+except ImportError:
+    try:
+        import tomli as tomllib  # type: ignore[no-redef]  # 可选 backport
+    except ImportError:
+        tomllib = None  # type: ignore[assignment]  # Python <3.11 且无 tomli
 
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
@@ -32,6 +43,163 @@ from src.models.countries import (
     LANGUAGE_NAMES,
     LANGUAGE_DIRECTIONS,
 )
+
+
+# === LLM 翻译配置(可选) ===
+# 当 llm.config.toml 配置了有效 api_key 时,调用 LLM API 进行真实翻译;
+# 否则回退到下方的模板翻译模式(语言前缀)。
+try:
+    import httpx
+    import diskcache
+    from tenacity import (
+        retry,
+        stop_after_attempt,
+        wait_exponential,
+        retry_if_exception_type,
+    )
+    _LLM_DEPS_AVAILABLE = True
+except ImportError:
+    _LLM_DEPS_AVAILABLE = False
+
+# 全局 LLM 状态(延迟初始化,避免无配置时的开销)
+_LLM_CONFIG: dict | None = None
+_LLM_CACHE = None
+_LLM_STATE_INIT = False
+
+
+def load_llm_config() -> dict | None:
+    """加载 LLM 配置
+
+    优先读取 llm.config.toml(实际值,被 .gitignore 排除);
+    不存在则读取 llm.config.example.toml(占位符,api_key 必然为空)。
+    返回完整配置 dict;若 api_key 为空或依赖库缺失,返回 None(回退到模板模式)。
+    """
+    # tomllib 不可用(Python <3.11 且未装 tomli),无法解析 TOML,回退到模板模式
+    if tomllib is None:
+        print("⚠️ tomllib 不可用(需 Python 3.11+ 或安装 tomli),回退到模板模式")
+        return None
+
+    # 优先读取实际配置(用户本地填写)
+    config_path = PROJECT_ROOT / "llm.config.toml"
+    if not config_path.exists():
+        # 回退到示例配置(api_key 必然为空,会走模板模式)
+        config_path = PROJECT_ROOT / "llm.config.example.toml"
+        if not config_path.exists():
+            return None
+
+    try:
+        with open(config_path, "rb") as f:
+            config = tomllib.load(f)
+    except Exception as e:
+        print(f"⚠️ 读取 LLM 配置失败({config_path.name}): {e},回退到模板模式")
+        return None
+
+    llm_cfg = config.get("llm", {})
+    api_key = str(llm_cfg.get("api_key", "")).strip()
+
+    # api_key 为空,或依赖库缺失,都走模板模式
+    if not api_key:
+        return None
+    if not _LLM_DEPS_AVAILABLE:
+        print("⚠️ httpx/tenacity/diskcache 未安装,回退到模板模式")
+        return None
+
+    return config
+
+
+def _get_llm_state() -> tuple[dict | None, object | None]:
+    """延迟初始化并返回 (config, cache) 元组
+
+    首次调用时读取配置并初始化磁盘缓存;后续调用直接返回缓存值。
+    线程安全注: 本脚本为单线程顺序执行,无需加锁。
+    """
+    global _LLM_CONFIG, _LLM_CACHE, _LLM_STATE_INIT
+    if not _LLM_STATE_INIT:
+        _LLM_STATE_INIT = True
+        _LLM_CONFIG = load_llm_config()
+        if _LLM_CONFIG is not None:
+            cache_dir = PROJECT_ROOT / ".cache" / "llm_translations"
+            cache_dir.mkdir(parents=True, exist_ok=True)
+            _LLM_CACHE = diskcache.Cache(str(cache_dir))
+            llm_cfg = _LLM_CONFIG.get("llm", {})
+            print(
+                f"🤖 LLM 翻译已启用: model={llm_cfg.get('model')}, "
+                f"base_url={llm_cfg.get('base_url')}"
+            )
+        else:
+            print("ℹ️ LLM 未配置(api_key 为空),使用模板翻译模式")
+    return _LLM_CONFIG, _LLM_CACHE
+
+
+def _call_llm_translate(
+    title: str, description: str, lang: str, config: dict
+) -> tuple[str, str]:
+    """调用 LLM API 翻译标题和描述
+
+    使用 OpenAI 兼容的 /chat/completions 接口,带重试逻辑(tenacity)。
+    返回 (translated_title, translated_description);失败时抛出异常(由调用方捕获并回退)。
+    """
+    llm_cfg = config.get("llm", {})
+    api_key = llm_cfg.get("api_key", "")
+    base_url = str(llm_cfg.get("base_url", "https://api.openai.com/v1")).rstrip("/")
+    model = llm_cfg.get("model", "gpt-4o-mini")
+    timeout = float(llm_cfg.get("timeout", 30))
+    max_retries = int(llm_cfg.get("max_retries", 3))
+
+    lang_name = LANGUAGE_NAMES.get(lang, lang)
+    prompt = (
+        f"将以下历史事件标题和描述翻译为{lang_name}语种,保留年份和专有名词。\n"
+        f'严格按 JSON 格式返回: {{"title": "...", "description": "..."}}\n'
+        f"标题: {title}\n"
+        f"描述: {description}"
+    )
+
+    url = f"{base_url}/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": model,
+        "messages": [
+            {
+                "role": "system",
+                "content": "你是专业的历史事件翻译助手。只返回 JSON,不要其他内容。",
+            },
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.3,
+    }
+
+    @retry(
+        stop=stop_after_attempt(max_retries),
+        wait=wait_exponential(multiplier=1, min=1, max=10),
+        retry=retry_if_exception_type(
+            (httpx.HTTPError, httpx.TimeoutException)
+        ),
+    )
+    def _do_request() -> dict:
+        with httpx.Client(timeout=timeout) as client:
+            resp = client.post(url, headers=headers, json=payload)
+            resp.raise_for_status()
+            return resp.json()
+
+    data = _do_request()
+    content = data["choices"][0]["message"]["content"].strip()
+
+    # 解析 JSON(容忍前后可能的 markdown 代码块包裹)
+    json_match = re.search(r"\{.*\}", content, re.DOTALL)
+    if not json_match:
+        raise ValueError(f"LLM 返回内容无法解析为 JSON: {content[:200]}")
+
+    parsed = json.loads(json_match.group(0))
+    t_title = str(parsed.get("title", "")).strip()
+    t_desc = str(parsed.get("description", "")).strip()
+
+    if not t_title or not t_desc:
+        raise ValueError(f"LLM 返回内容字段为空: {parsed}")
+
+    return t_title, t_desc
 
 
 # === 多语种翻译模板 ===
@@ -57,6 +225,11 @@ LANG_TITLE_TEMPLATES = {
     "sv": ("Idag i {country}s Historia", "Viktiga historiska händelser idag i {country}"),
     "cs": ("Dnes v Historii {country}", "Důležité historické události dnes v {country}"),
     "da": ("I Dag i {country}s Historie", "Vigtige historiske begivenheder i dag i {country}"),
+    "el": ("Σήμερα στην Ιστορία του {country}", "Σημαντικά ιστορικά γεγονότα σήμερα στο {country}"),
+    "fi": ("Tänään {country}n Historiassa", "Tärkeitä historiallisia tapahtumia tänään {country}ssa"),
+    "hu": ("Ma {country} Történelmében", "Fontos történelmi események ma {country}ban"),
+    "no": ("I Dag i {country}s Historie", "Viktige historiske hendelser i dag i {country}"),
+    "ro": ("Astăzi în Istoria {country}", "Evenimente istorice importante de astăzi în {country}"),
 }
 
 
@@ -75,16 +248,42 @@ def get_country_name_for_lang(country_code: str, lang: str) -> str:
 
 
 def translate_event_title(title: str, description: str, lang: str, country_code: str) -> tuple[str, str]:
-    """简单的模板翻译(不调 API,直接用语言前缀)
+    """翻译事件标题和描述
 
-    生产环境中,这个函数应该调用 GPT-4o 翻译。
-    本地全链路测试时使用模板翻译。
+    优先使用 LLM API 翻译(若 llm.config.toml 配置了有效 api_key);
+    否则回退到模板模式(语言前缀)。中文直接返回原文。
+
+    生产环境中,当 llm.config.toml 配置了有效 api_key 时调用 LLM API;
+    本地全链路测试(api_key 为空)时使用模板翻译。
     """
-    country_name = get_country_name_for_lang(country_code, lang)
+    # 中文直接使用原文
+    if lang == "zh":
+        return title, description
 
-    # 语言前缀(表明这是某种语言版本)
+    # 尝试 LLM 翻译
+    config, cache = _get_llm_state()
+    if config is not None and cache is not None:
+        # 构造缓存 key(包含 lang + 内容 hash,避免重复翻译相同内容)
+        cache_key_raw = f"{lang}|{title}|{description}"
+        cache_key = hashlib.sha256(cache_key_raw.encode("utf-8")).hexdigest()
+
+        cached = cache.get(cache_key)
+        if cached is not None:
+            return cached
+
+        try:
+            t_title, t_desc = _call_llm_translate(title, description, lang, config)
+            result = (t_title, t_desc)
+            cache.set(cache_key, result)
+            return result
+        except Exception as e:
+            # 失败时回退到模板模式(仅警告一次,避免刷屏)
+            if not getattr(translate_event_title, "_warned_fallback", False):
+                print(f"⚠️ LLM 翻译失败,回退到模板模式(仅警告一次): {e}")
+                translate_event_title._warned_fallback = True
+
+    # 模板模式(语言前缀,表明这是某种语言版本)
     lang_prefix_map = {
-        "zh": "",
         "en": "[EN] ",
         "ja": "[JA] ",
         "ko": "[KO] ",
@@ -106,10 +305,6 @@ def translate_event_title(title: str, description: str, lang: str, country_code:
         "da": "[DA] ",
     }
     prefix = lang_prefix_map.get(lang, "")
-
-    # 中文直接使用原文,其他语言添加前缀(模拟翻译效果)
-    if lang == "zh":
-        return title, description
     return f"{prefix}{title}", f"{prefix}{description}"
 
 
@@ -261,7 +456,7 @@ Search across all historical events in this archive.
 
         # 各地区子首页
         for country in countries:
-            country_dir = lang_dir / country
+            country_dir = lang_dir / country.lower()
             country_dir.mkdir(parents=True, exist_ok=True)
             country_index = country_dir / "_index.md"
             country_name = get_country_name_for_lang(country, lang)

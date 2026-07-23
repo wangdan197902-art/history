@@ -35,10 +35,11 @@ jobs:
           node-version: '20'
       - name: Install Python dependencies
         run: pip install --quiet pydantic pydantic-settings diskcache httpx tenacity
-        continue-on-error: true
       - name: Generate site content
-        run: python3 scripts/generate_full_site.py --output-dir=site/content --limit-days=5 2>&1 | tail -10
-        continue-on-error: true
+        # 注: 历史上此处用 `2>&1 | tail -10` + `continue-on-error: true` 掩盖了脚本崩溃
+        # (退出码取 tail=0,真实 python 退出码被丢弃),导致 CI 显示 success 但 site/content 为空。
+        # 现已移除掩盖:不接管道、不 continue-on-error,limit-days=0 表示全量 366 天。
+        run: python3 scripts/generate_full_site.py --output-dir=site/content --limit-days=0
       - name: Merge root static/ into site/static/
         run: |
           if [ -d static ]; then
@@ -56,6 +57,47 @@ jobs:
       - name: Build Pagefind Search Index
         run: cd site && npx pagefind --site public/
         continue-on-error: true
+      - name: Generate main site sitemap index
+        run: |
+          # 主站是多语种聚合站，sitemap 应为 sitemap index，指向各语种子 sitemap。
+          # defaultContentLanguage=zh 时 zh 的 sitemap 默认在根目录 /sitemap.xml，
+          # 需先复制到 /zh/sitemap.xml，再用 sitemap index 覆盖根目录 /sitemap.xml。
+          python3 -c '
+          import os, shutil
+          from datetime import datetime
+          public_dir = "site/public"
+          langs = ["zh","en","ja","ko","es","fr","de","pt","ru","ar","it","nl","pl","tr","vi","id","sv","cs","da"]
+          today = datetime.now().strftime("%Y-%m-%d")
+          base_url = "https://history.ai-term-hub.com"
+          root_sitemap = os.path.join(public_dir, "sitemap.xml")
+
+          # 确保 zh 的 sitemap 在 /zh/sitemap.xml
+          zh_sitemap = os.path.join(public_dir, "zh", "sitemap.xml")
+          if not os.path.exists(zh_sitemap) and os.path.exists(root_sitemap):
+              with open(root_sitemap, "r", encoding="utf-8") as f:
+                  content = f.read()
+              if "<sitemapindex" not in content:
+                  os.makedirs(os.path.join(public_dir, "zh"), exist_ok=True)
+                  shutil.copy2(root_sitemap, zh_sitemap)
+                  print("Copied root sitemap to zh/sitemap.xml")
+
+          # 生成 sitemap index
+          lines = []
+          lines.append("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>")
+          lines.append("<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">")
+          count = 0
+          for lang in langs:
+              sitemap_path = os.path.join(public_dir, lang, "sitemap.xml")
+              if os.path.exists(sitemap_path):
+                  lines.append("  <sitemap><loc>" + base_url + "/" + lang + "/sitemap.xml</loc><lastmod>" + today + "</lastmod></sitemap>")
+                  count += 1
+              else:
+                  print("Warning: " + lang + "/sitemap.xml not found")
+          lines.append("</sitemapindex>")
+          with open(root_sitemap, "w", encoding="utf-8") as f:
+              f.write("\n".join(lines) + "\n")
+          print("Generated sitemap index with " + str(count) + " sub-sitemaps")
+          '
       - name: Add .nojekyll
         run: touch site/public/.nojekyll
       - name: Inject GA4 + ensure SEO on root index.html

@@ -5,7 +5,7 @@
 {{- $baseURL := .Site.BaseURL -}}
 {{- $title := .Site.Title -}}
 {{- $description := .Site.Params.description | default $title -}}
-{{- $lang := .Site.LanguageCode | default .Site.Language.Lang | default "en" -}}
+{{- $lang := .Site.Language.Lang | default "en" -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

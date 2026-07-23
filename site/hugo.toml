@@ -97,6 +97,26 @@ buildFuture = false
   label = "Dansk"
   weight = 20
   title = "I Dag i Historien"
+[languages.el]
+  label = "Ελληνικά"
+  weight = 21
+  title = "Σήμερα στην Ιστορία"
+[languages.fi]
+  label = "Suomi"
+  weight = 22
+  title = "Tänään Historiassa"
+[languages.hu]
+  label = "Magyar"
+  weight = 23
+  title = "Ma a Történelemben"
+[languages.no]
+  label = "Norsk"
+  weight = 24
+  title = "I Dag i Historien"
+[languages.ro]
+  label = "Română"
+  weight = 25
+  title = "Astăzi în Istorie"
 
 # Markdown 渲染
 [markup]
@@ -137,8 +157,8 @@ buildFuture = false
   author = "Today in History Archive"
   # 30 地区列表(逗号分隔)
   countries = "CN,US,JP,KR,UK,DE,FR,RU,BR,IN,AU,CA,IT,ES,MX,ID,TH,VN,SG,MY,PH,SA,AE,EG,ZA,NG,TR,PL,NL,SE"
-  # 20 语种列表
-  languages = "zh,en,ja,ko,es,fr,de,pt,ru,ar,it,nl,pl,tr,vi,th,id,sv,cs,da"
+  # 24 语种列表(移除 th,新增 el/fi/hu/no/ro,与 deploy-matrix.yml 对齐)
+  languages = "zh,en,ja,ko,es,fr,de,pt,ru,ar,it,nl,pl,tr,vi,id,sv,cs,da,el,fi,hu,no,ro"
   # SEO
   googleAnalytics = ""
   # Google Search Console 验证（主入口 history.ai-term-hub.com）

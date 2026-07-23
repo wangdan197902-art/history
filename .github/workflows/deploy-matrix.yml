@@ -59,12 +59,13 @@ jobs:
 
       - name: Generate content for ${{ matrix.lang }}
         run: |
-          DAYS_LIMIT="${{ github.event.inputs.days_limit || '30' }}"
-          echo "🚀 生成内容: 30地区 × ${DAYS_LIMIT}天 × ${{ matrix.lang }}语种"
+          DAYS_LIMIT="${{ github.event.inputs.days_limit || '0' }}"
+          echo "🚀 生成内容: 30地区 × ${DAYS_LIMIT}天 × ${{ matrix.lang }}语种 (0=全量366天)"
+          # 注: 移除 `2>&1 | tail -10` 管道(会掩盖真实退出码),让错误可见
           python3 scripts/generate_full_site.py \
             --output-dir=site/content \
             --limit-days=${DAYS_LIMIT} \
-            --languages=${{ matrix.lang }} 2>&1 | tail -10
+            --languages=${{ matrix.lang }}
 
       - name: Build ${{ matrix.lang }} site
         run: |
@@ -94,6 +95,48 @@ jobs:
             echo "⚠️  根目录缺少 index.html，检查构建产物..."
             ls -la "publish-${{ matrix.lang }}/" | head -20
           fi
+
+      - name: Fix sitemap for single-lang
+        env:
+          CURRENT_LANG: ${{ matrix.lang }}
+        run: |
+          # Hugo 多语种构建生成的 sitemap.xml 包含所有配置语种的 URL，
+          # 此步骤过滤掉其他语种的 URL，只保留当前语种（根路径）的 URL。
+          # 用环境变量传递 lang，避免 shell 字符串替换的 bug。
+          python3 -c '
+          import re, os
+          from urllib.parse import urlparse
+          lang = os.environ["CURRENT_LANG"]
+          all_langs = ["ar","cs","da","de","el","en","es","fi","fr","hu","id","it","ja","ko","nl","no","pl","pt","ro","ru","sv","tr","vi","zh"]
+          other_langs = set(l for l in all_langs if l != lang)
+          sitemap_path = "publish-" + lang + "/sitemap.xml"
+          if not os.path.exists(sitemap_path):
+              print("Warning: " + sitemap_path + " not found, skipping")
+              raise SystemExit(0)
+          with open(sitemap_path, "r", encoding="utf-8") as f:
+              content = f.read()
+          # 提取所有 <url>...</url> 块，保留原始结构（含 lastmod/changefreq/priority）
+          blocks = re.findall(r"<url>.*?</url>", content, re.DOTALL)
+          valid = []
+          for b in blocks:
+              m = re.search(r"<loc>([^<]+)</loc>", b)
+              if not m:
+                  continue
+              loc = m.group(1)
+              # 解析 URL path，判断第一段是否是其他语种
+              path = urlparse(loc).path.strip("/")
+              first_segment = path.split("/")[0] if path else ""
+              if first_segment in other_langs:
+                  continue
+              valid.append(b)
+          with open(sitemap_path, "w", encoding="utf-8") as f:
+              f.write("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n")
+              f.write("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n")
+              for b in valid:
+                  f.write(b + "\n")
+              f.write("</urlset>\n")
+          print("Fixed sitemap: " + str(len(valid)) + " URLs for " + lang)
+          '
 
       - name: Build Pagefind index
         continue-on-error: true

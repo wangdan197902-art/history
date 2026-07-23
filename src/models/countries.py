@@ -41,11 +41,12 @@ COUNTRY_NAMES_EN = {
     "PL": "Poland", "NL": "Netherlands", "SE": "Sweden",
 }
 
-# === 20 语种清单 ===
-# 原有 10 种 + 新增 10 种(it,nl,pl,tr,vi,th,id,sv,cs,da)
+# === 24 语种清单 ===
+# 移除 th(无独立子仓),新增 el/fi/hu/no/ro(与 deploy-matrix.yml + hugo.toml 对齐)
 LANGUAGES = [
     "zh", "en", "ja", "ko", "es", "fr", "de", "pt", "ru", "ar",
-    "it", "nl", "pl", "tr", "vi", "th", "id", "sv", "cs", "da",
+    "it", "nl", "pl", "tr", "vi", "id", "sv", "cs", "da",
+    "el", "fi", "hu", "no", "ro",
 ]
 
 LANGUAGE_NAMES = {
@@ -53,8 +54,9 @@ LANGUAGE_NAMES = {
     "es": "Español", "fr": "Français", "de": "Deutsch", "pt": "Português",
     "ru": "Русский", "ar": "العربية",
     "it": "Italiano", "nl": "Nederlands", "pl": "Polski", "tr": "Türkçe",
-    "vi": "Tiếng Việt", "th": "ไทย", "id": "Bahasa Indonesia",
+    "vi": "Tiếng Việt", "id": "Bahasa Indonesia",
     "sv": "Svenska", "cs": "Čeština", "da": "Dansk",
+    "el": "Ελληνικά", "fi": "Suomi", "hu": "Magyar", "no": "Norsk", "ro": "Română",
 }
 
 # 语种方向(ar 为 RTL,其余 LTR)
@@ -62,7 +64,8 @@ LANGUAGE_DIRECTIONS = {
     "zh": "ltr", "en": "ltr", "ja": "ltr", "ko": "ltr", "es": "ltr",
     "fr": "ltr", "de": "ltr", "pt": "ltr", "ru": "ltr", "ar": "rtl",
     "it": "ltr", "nl": "ltr", "pl": "ltr", "tr": "ltr", "vi": "ltr",
-    "th": "ltr", "id": "ltr", "sv": "ltr", "cs": "ltr", "da": "ltr",
+    "id": "ltr", "sv": "ltr", "cs": "ltr", "da": "ltr",
+    "el": "ltr", "fi": "ltr", "hu": "ltr", "no": "ltr", "ro": "ltr",
 }
 
 

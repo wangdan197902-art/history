@@ -1,16 +1,18 @@
-# AI History Hub
+# 今天历史 · 地区化档案站
 
-> Explore AI development history and milestones across 20 languages. Find timeline of AI breakthroughs, key events, and historical context for artificial intelligence.
+> 探索30个地区366天的重要历史事件,支持24种语言。每日更新各地区历史档案,涵盖中国、美国、日本、韩国、英国、德国、法国等30个核心地区。
 
-## Site Overview
-- AI history events: 500+
-- Supported languages: 20
-- Page types: timeline, events, milestones, decades
+## 站点概览
+- 历史事件: 30地区 × 366天 = 10,980+ 历史日期档案
+- 支持语种: 24种(中文、英语、日本語、한국어、Español、Français、Deutsch、Português、Русский、العربية等)
+- 页面类型: 每日历史事件、地区档案、语种首页
 - Base URL: https://history.ai-term-hub.com/
 
-## Important Pages
-- [Home](https://history.ai-term-hub.com/)
-- [Timeline](https://history.ai-term-hub.com/en/timeline/)
-- [Key Events](https://history.ai-term-hub.com/en/events/)
-- [Decades](https://history.ai-term-hub.com/en/decades/)
+## 重要页面
+- [首页](https://history.ai-term-hub.com/)
+- [中文站](https://history.ai-term-hub.com/zh/)
+- [English](https://history.ai-term-hub.com/en/)
+- [中国历史](https://history.ai-term-hub.com/zh/cn/)
+- [美国历史](https://history.ai-term-hub.com/zh/us/)
+- [日本历史](https://history.ai-term-hub.com/zh/jp/)
 - [Sitemap](https://history.ai-term-hub.com/sitemap.xml)

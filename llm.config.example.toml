@@ -1,0 +1,29 @@
+# LLM 配置 - 地区化今天历史档案站
+# 用于 generate_full_site.py 调用 LLM API 进行多语种翻译
+# 使用 OpenAI 兼容接口(支持 OpenAI / Anthropic 网关 / 本地模型)
+#
+# 用法:
+#   1. 复制本文件为 llm.config.toml: cp llm.config.example.toml llm.config.toml
+#   2. 在 llm.config.toml 中填入真实 api_key
+#   3. llm.config.toml 已被 .gitignore 排除,不会提交到仓库
+#   4. 若 llm.config.toml 不存在或 api_key 为空,脚本自动回退到模板翻译模式
+
+[llm]
+# API 密钥(留空则回退到模板模式,不会调用 API)
+api_key = ""
+# API 基础 URL(OpenAI: https://api.openai.com/v1, 其他兼容接口自定义)
+base_url = "https://api.openai.com/v1"
+# 模型名称(如 gpt-4o-mini, claude-3-5-haiku-20241022 等)
+model = "gpt-4o-mini"
+# 请求超时(秒)
+timeout = 30
+# 最大重试次数
+max_retries = 3
+# 并发请求数
+max_concurrency = 5
+
+[wikipedia]
+# Wikipedia REST API User-Agent(必填,格式: 应用名 (联系邮箱))
+user_agent = "TodayInHistoryBot/1.0 (https://history.ai-term-hub.com)"
+# 请求间隔(秒,避免限流)
+request_interval = 1.0
