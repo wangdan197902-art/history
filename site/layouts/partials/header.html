@@ -3,7 +3,7 @@
     <a href="/" class="logo">{{ .Site.Title }}</a>
     <nav class="main-nav">
       <a href="/">首页</a>
-      <a href="/zh/on-this-day/CN/{{ now.Format "01-02" }}/">今日</a>
+      <a href="/{{ .Site.Language.Lang }}/cn/{{ now.Format "01-02" }}/">今日</a>
       <a href="{{ "/search/" | relLangURL }}">搜索</a>
     </nav>
   </div>

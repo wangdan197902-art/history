@@ -1,10 +1,10 @@
 {{ with .Params.country_code }}
-{{ $country := . }}
+{{ $country := lower . }}
 {{ $date := $.Date }}
 {{ $prev := $date.AddDate 0 0 -1 }}
 {{ $next := $date.AddDate 0 0 1 }}
 <nav class="day-nav">
-  <a href="{{ printf "/%s/on-this-day/%s/%s/" $.Site.Language.Lang $country $prev.Format "01-02" }}" class="prev">← 前一天</a>
-  <a href="{{ printf "/%s/on-this-day/%s/%s/" $.Site.Language.Lang $country $next.Format "01-02" }}" class="next">后一天 →</a>
+  <a href="{{ printf "/%s/%s/%s/" $.Site.Language.Lang $country $prev.Format "01-02" }}" class="prev">← 前一天</a>
+  <a href="{{ printf "/%s/%s/%s/" $.Site.Language.Lang $country $next.Format "01-02" }}" class="next">后一天 →</a>
 </nav>
 {{ end }}

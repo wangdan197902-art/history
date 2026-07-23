@@ -430,7 +430,7 @@ Browse today in history by country:
 """
         for country in countries:
             country_name = get_country_name_for_lang(country, lang)
-            index_content += f"- [{country_name}](/{lang}/{country}/)\n"
+            index_content += f"- [{country_name}](/{lang}/{country.lower()}/)\n"
 
         index_file.write_text(index_content, encoding="utf-8")
         count += 1

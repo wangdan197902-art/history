@@ -19,11 +19,11 @@
   <section class="quick-links">
     <h2>快速访问</h2>
     <ul>
-      <li><a href="/zh/CN/{{ now.Format "01-02" }}/">今日中国历史</a></li>
-      <li><a href="/en/US/{{ now.Format "01-02" }}/">Today in US History</a></li>
-      <li><a href="/zh/CN/10-01/">10月1日中国历史</a></li>
-      <li><a href="/en/US/07-04/">July 4 US History</a></li>
-      <li><a href="/ja/JP/01-01/">1月1日日本の歴史</a></li>
+      <li><a href="/zh/cn/{{ now.Format "01-02" }}/">今日中国历史</a></li>
+      <li><a href="/en/us/{{ now.Format "01-02" }}/">Today in US History</a></li>
+      <li><a href="/zh/cn/10-01/">10月1日中国历史</a></li>
+      <li><a href="/en/us/07-04/">July 4 US History</a></li>
+      <li><a href="/ja/jp/01-01/">1月1日日本の歴史</a></li>
     </ul>
   </section>
 
@@ -31,7 +31,7 @@
     <h2>站点统计</h2>
     <ul>
       <li>覆盖地区: 30 个</li>
-      <li>支持语种: 20 种</li>
+      <li>支持语种: {{ len $.Site.Languages }} 种</li>
       <li>历史日期: 366 天(含闰年)</li>
       <li>总页面数: 219,600+ 页</li>
     </ul>
