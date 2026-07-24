@@ -75,9 +75,9 @@ jobs:
 
       - name: Package site as zip
         run: |
-          echo "📦 打包 site/public 为 zip (排除 Pagefind 索引测试)..."
+          echo "📦 打包 site/public 为 zip (含 Pagefind 搜索索引)..."
           cd site
-          zip -r -q -X ../site-public.zip public/ -x "public/pagefind/*" -x "public/pagefind-ui/*"
+          zip -r -q -X ../site-public.zip public/
           cd ..
           ls -lh site-public.zip
           echo "Zip 大小: $(du -h site-public.zip | cut -f1)"

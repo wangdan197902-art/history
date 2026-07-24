@@ -148,7 +148,6 @@ jobs:
           '
 
       - name: Build Pagefind index
-        continue-on-error: true
         run: |
           set -x
           # 安装 Pagefind（使用直接 URL 避免 CloudCannon→Pagefind 仓库迁移重定向）
