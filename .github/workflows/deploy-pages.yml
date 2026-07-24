@@ -54,7 +54,9 @@ jobs:
             echo "No root static/ directory found"
           fi
       - name: Build with Hugo
-        run: cd site && hugo --gc --minify --baseURL "https://history.ai-term-hub.com/"
+        # --logLevel error: 只输出错误,避免 263K 页面的日志淹没 CI
+        # 不使用管道,保留 Hugo 退出码
+        run: cd site && hugo --minify --baseURL "https://history.ai-term-hub.com/" --logLevel error
         env:
           HUGO_ENV: production
       - name: Build Pagefind Search Index

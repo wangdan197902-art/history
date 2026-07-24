@@ -473,7 +473,6 @@ def generate_markdown_for_day(
     content = f"""---
 title: "{month}-{day} · {yaml_escape(page_title)}"
 date: {date_str}
-layout: "day"
 country_code: "{country}"
 country_name: "{yaml_escape(country_name)}"
 language: "{lang}"
