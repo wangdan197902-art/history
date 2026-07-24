@@ -17,7 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
       - name: Setup Hugo
@@ -54,7 +54,7 @@ jobs:
             echo "No root static/ directory found"
           fi
       - name: Build with Hugo
-        run: cd site && hugo --minify --baseURL "https://history.ai-term-hub.com/"
+        run: cd site && hugo --gc --minify --baseURL "https://history.ai-term-hub.com/"
         env:
           HUGO_ENV: production
       - name: Build Pagefind Search Index
