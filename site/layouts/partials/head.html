@@ -1,4 +1,4 @@
 {{ partialCached "hreflang.html" . .Permalink }}
 {{ partialCached "style.html" . }}
-{{ partialCached "schema-article.html" . .Params.country_code .Date }}
-{{ partialCached "seo.html" . .Site.Params.currentLanguage }}
+{{ partial "schema-article.html" . }}
+{{ partial "seo.html" . }}
