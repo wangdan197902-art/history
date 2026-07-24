@@ -1,0 +1,11 @@
+{
+  "name": "今天历史 · 地区化档案站",
+  "short_name": "今天历史",
+  "description": "探索30个地区366天的重要历史事件,支持24种语言",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#0a0a1a",
+  "lang": "zh",
+  "scope": "/"
+}
